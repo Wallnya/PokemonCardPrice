@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_vertical"
+    android:background="#A43131"
+    tools:context=".ui.card_search.CardSearchFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="Entre l'ID d'un pokemon"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/playerTag"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_gravity="center_horizontal"
+        android:ems="10"
+        android:inputType="text"
+        android:textColor="@color/white"
+        android:textColorHint="#B4FFFFFF"
+        android:maxLength="15"
+        android:text="" />
+
+    <androidx.appcompat.widget.AppCompatButton
+
+    android:id="@+id/button"
+        style="@android:style/Widget.Material.Button"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="#2D6DC3"
+        android:textColor="@color/white"
+        android:text="Voir la carte demandée" />
+
+
+</LinearLayout>
