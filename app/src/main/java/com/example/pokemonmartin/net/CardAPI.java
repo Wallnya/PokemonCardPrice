@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 public class CardAPI {
 
-    static String API_ENDPOINT = "https://api.pokemontcg.io/v2/cards/";
+    static String API_ENDPOINT = "https://api.pokemontcg.io/v2/cards/?q=name:";
     public static void getCard(String playerTag, Context ctx, Response.Listener<JSONObject> onResponse, Response.ErrorListener onError) {
         String requestUrl = API_ENDPOINT + playerTag;
         JsonObjectRequest cardRequest = new JsonObjectRequest
@@ -26,7 +26,7 @@ public class CardAPI {
                 return params;
             }
         };
-
+        System.out.println("url :"+requestUrl);
         PokemonRequestQueue.getInstance(ctx).addToRequestQueue(cardRequest);
     }
 }

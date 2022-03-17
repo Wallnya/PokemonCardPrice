@@ -17,6 +17,11 @@
         android:title="@string/title_notifications" />
 
     <item
+        android:id="@+id/cardsFragment"
+        android:icon="@drawable/ic_list"
+        android:title="@string/title_card_fragment" />
+
+    <item
         android:id="@+id/cardSearchFragment"
         android:icon="@drawable/ic_baseline_search_24"
         android:title="@string/title_card" />

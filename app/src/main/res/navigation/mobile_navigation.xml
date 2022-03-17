@@ -25,10 +25,16 @@
     <fragment
         android:id="@+id/cardSearchFragment"
         android:name="com.example.pokemonmartin.ui.card_search.CardSearchFragment"
-        android:label="player_search_fragment"
-        tools:layout="@layout/fragment_Cardsearch" >
+        android:label="Recherche une carte"
+        tools:layout="@layout/fragment_cardsearch" >
         <action
-            android:id="@+id/action_cardSearchFragment_to_navigation_dashboard"
-            app:destination="@id/navigation_dashboard" />
+            android:id="@+id/action_cardSearchFragment_to_cardsFragment"
+            app:destination="@id/cardsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/cardsFragment"
+        android:name="com.example.pokemonmartin.ui.card.CardsFragment"
+        android:label="Liste de cartes"
+        tools:layout="@layout/fragment_cards"
+        />
 </navigation>

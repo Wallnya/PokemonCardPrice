@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -38,7 +39,11 @@ public class CardSearchFragment extends Fragment {
             String playerTag = binding.playerTag.getText().toString();
             cardsViewModel.getCard(playerTag).observe(getViewLifecycleOwner(), cardItem -> {
                 if (cardItem != null) {
-                    Navigation.findNavController(root).navigate(R.id.action_cardSearchFragment_to_navigation_dashboard);
+                    //Navigation.findNavController(root).navigate(R.id.action_cardSearchFragment_to_navigation_dashboard);
+                    Navigation.findNavController(root).navigate(R.id.action_cardSearchFragment_to_cardsFragment);
+                }
+                else {
+                    Toast.makeText(getContext(), "Pas de carte", Toast.LENGTH_LONG).show();
                 }
             });
         });

@@ -6,10 +6,13 @@ public class CardItem {
 
     private String id;
     private String name;
+    private String extension;
 
-    public CardItem(String id, String name) {
+    public CardItem(String id, String name, String extension) {
         this.id = id;
         this.name = name;
+        this.extension = extension;
+
     }
 
     public String getId() {
@@ -26,5 +29,13 @@ public class CardItem {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getExtension() {
+        return extension;
+    }
+
+    public void setExtension(String extension) {
+        this.extension = extension;
     }
 }

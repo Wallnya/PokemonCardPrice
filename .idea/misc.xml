@@ -12,11 +12,17 @@
         <entry key="..\:/Users/Gludi/AndroidStudioProjects/PokemonMartin/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/Gludi/AndroidStudioProjects/PokemonMartin/app/src/main/res/layout/brawler_item.xml" value="0.1" />
         <entry key="..\:/Users/Gludi/AndroidStudioProjects/PokemonMartin/app/src/main/res/layout/fragment_brawlers.xml" value="0.1" />
+        <entry key="..\:/Users/Gludi/AndroidStudioProjects/PokemonMartin/app/src/main/res/layout/fragment_cards.xml" value="0.20052083333333334" />
+        <entry key="..\:/Users/Gludi/AndroidStudioProjects/PokemonMartin/app/src/main/res/layout/fragment_cardsearch.xml" value="0.234375" />
         <entry key="..\:/Users/Gludi/AndroidStudioProjects/PokemonMartin/app/src/main/res/layout/fragment_dashboard.xml" value="0.1" />
         <entry key="..\:/Users/Gludi/AndroidStudioProjects/PokemonMartin/app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="..\:/Users/Gludi/AndroidStudioProjects/PokemonMartin/app/src/main/res/layout/fragment_notifications.xml" value="0.1" />
+        <entry key="..\:/Users/Gludi/AndroidStudioProjects/PokemonMartin/app/src/main/res/layout/fragment_rankings.xml" value="0.11458333333333333" />
         <entry key="..\:/Users/Gludi/AndroidStudioProjects/PokemonMartin/app/src/main/res/layout/player_search_fragment.xml" value="0.33" />
-        <entry key="..\:/Users/Gludi/AndroidStudioProjects/PokemonMartin/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
+        <entry key="..\:/Users/Gludi/AndroidStudioProjects/PokemonMartin/app/src/main/res/layout/ranking_item.xml" value="0.18819655521783182" />
+        <entry key="..\:/Users/Gludi/AndroidStudioProjects/PokemonMartin/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25" />
+        <entry key="..\:/Users/Gludi/AndroidStudioProjects/PokemonMartin/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2095" />
+        <entry key="..\:/Users/Gludi/AndroidStudioProjects/PokemonMartin/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2095" />
       </map>
     </option>
   </component>

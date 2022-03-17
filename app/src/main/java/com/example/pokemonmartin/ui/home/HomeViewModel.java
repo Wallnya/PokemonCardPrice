@@ -24,7 +24,7 @@ public class HomeViewModel extends AndroidViewModel {
     public HomeViewModel(Application application) {
         super(application);
         mText = new MutableLiveData<>();
-        mText.setValue("This is home fragment");
+        mText.setValue("Bienvenue dans cette application qui permettra de mettre en évidence le cours des cartes pokemon.");
     }
 
    public LiveData<String> getText() {

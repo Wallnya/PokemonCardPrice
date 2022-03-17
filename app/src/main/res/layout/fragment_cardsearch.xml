@@ -1,21 +1,29 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center_vertical"
-    android:background="#A43131"
-    tools:context=".ui.card_search.CardSearchFragment">
+    tools:context=".ui.card_search.CardSearchFragment"
+    android:background="@color/white">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:text="Entre l'ID d'un pokemon"
+        android:text="@string/pokemonName"
         android:textAlignment="center"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="24sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="@string/pokemonNameInfos"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
 
     <EditText
         android:id="@+id/playerTag"
@@ -25,10 +33,14 @@
         android:layout_gravity="center_horizontal"
         android:ems="10"
         android:inputType="text"
-        android:textColor="@color/white"
-        android:textColorHint="#B4FFFFFF"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:backgroundTint="@color/black"
+        android:textCursorDrawable="@color/black"
         android:maxLength="15"
-        android:text="" />
+        android:text=""
+        android:autofillHints="pikachu"
+        tools:ignore="LabelFor" />
 
     <androidx.appcompat.widget.AppCompatButton
 
@@ -37,9 +49,9 @@
         android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:background="#2D6DC3"
+        android:background="#A43131"
         android:textColor="@color/white"
-        android:text="Voir la carte demandée" />
+        android:text="@string/pokemonButtonName" />
 
 
 </LinearLayout>

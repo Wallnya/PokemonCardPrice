@@ -17,31 +17,60 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CardsViewModel extends AndroidViewModel {
-    private MutableLiveData<CardItem> mCards;
+    private MutableLiveData<List<CardItem>> mCards = null;
+    public static String playerTag;
 
     public CardsViewModel(Application application) {
         super(application);
-    }
-
-    public LiveData<CardItem> getLastPlayer() {
-        return mCards;
-    }
-
-    public LiveData<CardItem> getCard(String playerTag) {
         mCards = new MutableLiveData<>();
-
+        List<CardItem> cardItems = new ArrayList<>();
         CardAPI.getCard(playerTag, getApplication().getApplicationContext(), response -> {
             try {
-                String name = response.getJSONObject("data").getString("name");
-                CardItem cardItem = new CardItem(playerTag, name);
-                mCards.setValue(cardItem);
+                JSONArray cardList = response.getJSONArray("data");
+                for (int i = 0, size = cardList.length(); i < size; i++) {
+                    JSONObject cardItemJson = cardList.getJSONObject(i);
+                    String id = cardItemJson.getString("id");
+                    String set = cardItemJson.getJSONObject("set").getString("name");
+                    CardItem cardItem = new CardItem(id, playerTag, set);
+                    cardItems.add(cardItem);
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
+                mCards.setValue(null);
             }
+            mCards.setValue(cardItems);
         }, error -> {
             mCards.setValue(null);
-            });
-        return mCards;
+        });
+        mCards.setValue(cardItems);
+    }
 
+    public LiveData<List<CardItem>> getCard(String playerTag) {
+        CardsViewModel.playerTag = playerTag;
+        mCards = new MutableLiveData<>();
+        List<CardItem> cardItems = new ArrayList<>();
+        CardAPI.getCard(playerTag, getApplication().getApplicationContext(), response -> {
+            try {
+                JSONArray cardList = response.getJSONArray("data");
+                for (int i = 0, size = cardList.length(); i < size; i++) {
+                    JSONObject cardItemJson = cardList.getJSONObject(i);
+                    String id = cardItemJson.getString("id");
+                    String set = cardItemJson.getJSONObject("set").getString("name");
+                    CardItem cardItem = new CardItem(id, playerTag, set);
+                    cardItems.add(cardItem);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+                mCards.setValue(null);
+            }
+            mCards.setValue(cardItems);
+        }, error -> {
+            mCards.setValue(null);
+        });
+        return mCards;
+    }
+
+    public LiveData<List<CardItem>> getRankings() {
+        return mCards;
     }
 }
