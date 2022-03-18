@@ -3,6 +3,7 @@ package com.example.pokemonmartin.ui.card;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,21 +13,24 @@ import com.example.pokemonmartin.models.CardItem;
 
 import java.util.List;
 import com.example.pokemonmartin.R;
+import com.squareup.picasso.Picasso;
 
 public class CardsListItemAdapter extends RecyclerView.Adapter<CardsListItemAdapter.ViewHolder> {
     private List<CardItem> mDataSet;
     private CardsListItemAdapter.ItemClickListener mClickListener;
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private final TextView rankView;
+        private final TextView idView;
         private final TextView nameView;
-        private final TextView clubNameView;
+        private final TextView extensionView;
+        private final ImageView extensionAvatarView;
 
         public ViewHolder(View v) {
             super(v);
-            rankView = (TextView) v.findViewById(R.id.textView6);
+            idView = (TextView) v.findViewById(R.id.textView6);
             nameView = (TextView) v.findViewById(R.id.textView4);
-            clubNameView = (TextView) v.findViewById(R.id.textView5);
+            extensionView = (TextView) v.findViewById(R.id.textView5);
+            extensionAvatarView = (ImageView) v.findViewById(R.id.imageView);
             v.setOnClickListener(this);
         }
 
@@ -36,17 +40,16 @@ public class CardsListItemAdapter extends RecyclerView.Adapter<CardsListItemAdap
         }
 
         public TextView getRankView() {
-            return rankView;
+            return idView;
         }
 
         public TextView getNameView() {
             return nameView;
         }
 
-        public TextView getClubNameView() {
-            return clubNameView;
-        }
+        public TextView getClubNameView() {return extensionView;}
 
+        public ImageView getAvatarView() {return extensionAvatarView;}
     }
 
     public CardsListItemAdapter(List<CardItem> dataSet) {
@@ -68,21 +71,19 @@ public class CardsListItemAdapter extends RecyclerView.Adapter<CardsListItemAdap
     }
 
     @Override
-    public void onBindViewHolder(CardsListItemAdapter.ViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         CardItem CardItem = mDataSet.get(position);
 
         viewHolder.getRankView().setText(CardItem.getId());
         viewHolder.getNameView().setText(CardItem.getName());
         viewHolder.getClubNameView().setText(CardItem.getExtension());
+        Picasso.get().load(CardItem.getExtensionImage()).into(viewHolder.getAvatarView());
+
     }
 
     @Override
     public int getItemCount() {
         return mDataSet.size();
-    }
-
-    CardItem getItem(int id) {
-        return mDataSet.get(id);
     }
 
     void setClickListener(CardsListItemAdapter.ItemClickListener itemClickListener) {

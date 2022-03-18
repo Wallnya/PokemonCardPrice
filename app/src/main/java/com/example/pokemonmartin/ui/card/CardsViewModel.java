@@ -24,14 +24,17 @@ public class CardsViewModel extends AndroidViewModel {
         super(application);
         mCards = new MutableLiveData<>();
         List<CardItem> cardItems = new ArrayList<>();
+        System.out.println("test:"+cardItems);
         CardAPI.getCard(playerTag, getApplication().getApplicationContext(), response -> {
             try {
                 JSONArray cardList = response.getJSONArray("data");
                 for (int i = 0, size = cardList.length(); i < size; i++) {
                     JSONObject cardItemJson = cardList.getJSONObject(i);
+                    String name = cardItemJson.getString("name");
                     String id = cardItemJson.getString("id");
                     String set = cardItemJson.getJSONObject("set").getString("name");
-                    CardItem cardItem = new CardItem(id, playerTag, set);
+                    String setImage = cardItemJson.getJSONObject("set").getJSONObject("images").getString("symbol");
+                    CardItem cardItem = new CardItem(id, name, set,setImage);
                     cardItems.add(cardItem);
                 }
             } catch (JSONException e) {
@@ -39,6 +42,8 @@ public class CardsViewModel extends AndroidViewModel {
                 mCards.setValue(null);
             }
             mCards.setValue(cardItems);
+            System.out.println("test 2:"+mCards);
+
         }, error -> {
             mCards.setValue(null);
         });
@@ -55,8 +60,10 @@ public class CardsViewModel extends AndroidViewModel {
                 for (int i = 0, size = cardList.length(); i < size; i++) {
                     JSONObject cardItemJson = cardList.getJSONObject(i);
                     String id = cardItemJson.getString("id");
+                    String name = cardItemJson.getString("name");
                     String set = cardItemJson.getJSONObject("set").getString("name");
-                    CardItem cardItem = new CardItem(id, playerTag, set);
+                    String setImage = cardItemJson.getJSONObject("set").getJSONObject("images").getString("symbol");
+                    CardItem cardItem = new CardItem(id, name, set,setImage);
                     cardItems.add(cardItem);
                 }
             } catch (JSONException e) {

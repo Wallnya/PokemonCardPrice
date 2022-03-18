@@ -1,18 +1,17 @@
 package com.example.pokemonmartin.models;
 
-import java.util.List;
-
 public class CardItem {
 
     private String id;
     private String name;
     private String extension;
+    private String extensionImage;
 
-    public CardItem(String id, String name, String extension) {
+    public CardItem(String id, String name, String extension, String extensionImage) {
         this.id = id;
         this.name = name;
         this.extension = extension;
-
+        this.extensionImage = extensionImage;
     }
 
     public String getId() {
@@ -37,5 +36,12 @@ public class CardItem {
 
     public void setExtension(String extension) {
         this.extension = extension;
+    }
+    public String getExtensionImage() {
+        return extensionImage;
+    }
+
+    public void setExtensionImage(String extensionImage) {
+        this.extensionImage = extensionImage;
     }
 }

@@ -12,12 +12,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pokemonmartin.databinding.FragmentCardsBinding;
+import com.example.pokemonmartin.models.VerticalSpacingDecoration;
 
 
 public class CardsFragment extends Fragment {
 
     private CardsViewModel rankingsViewModel;
     private FragmentCardsBinding binding;
+    private static final int VERTICAL_ITEM_SPACE = 24;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -30,6 +32,7 @@ public class CardsFragment extends Fragment {
         final RecyclerView recyclerView = binding.rankingListView;
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        recyclerView.addItemDecoration(new VerticalSpacingDecoration(VERTICAL_ITEM_SPACE));
 
         rankingsViewModel.getCard(CardsViewModel.playerTag).observe(getViewLifecycleOwner(), rankingItems -> {
             CardsListItemAdapter adapter = new CardsListItemAdapter(rankingItems);

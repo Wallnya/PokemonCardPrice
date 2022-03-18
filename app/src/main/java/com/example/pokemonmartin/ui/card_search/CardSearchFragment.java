@@ -38,8 +38,7 @@ public class CardSearchFragment extends Fragment {
         binding.button.setOnClickListener(v -> {
             String playerTag = binding.playerTag.getText().toString();
             cardsViewModel.getCard(playerTag).observe(getViewLifecycleOwner(), cardItem -> {
-                if (cardItem != null) {
-                    //Navigation.findNavController(root).navigate(R.id.action_cardSearchFragment_to_navigation_dashboard);
+                if (!cardItem.isEmpty()) {
                     Navigation.findNavController(root).navigate(R.id.action_cardSearchFragment_to_cardsFragment);
                 }
                 else {
