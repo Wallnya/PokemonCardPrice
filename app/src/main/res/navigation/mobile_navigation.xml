@@ -7,24 +7,24 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.pokemonmartin.ui.home.HomeFragment"
+        android:name="com.example.pokemoncardprice.ui.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.example.pokemonmartin.ui.dashboard.DashboardFragment"
+        android:name="com.example.pokemoncardprice.ui.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.example.pokemonmartin.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:name="com.example.pokemoncardprice.ui.card_info.CardsInfoFragment"
+        android:label="@string/title_card_info"
+        tools:layout="@layout/fragment_cardinfo" />
     <fragment
         android:id="@+id/cardSearchFragment"
-        android:name="com.example.pokemonmartin.ui.card_search.CardSearchFragment"
+        android:name="com.example.pokemoncardprice.ui.card_search.CardSearchFragment"
         android:label="Recherche une carte"
         tools:layout="@layout/fragment_cardsearch" >
         <action
@@ -33,8 +33,12 @@
     </fragment>
     <fragment
         android:id="@+id/cardsFragment"
-        android:name="com.example.pokemonmartin.ui.card.CardsFragment"
+        android:name="com.example.pokemoncardprice.ui.card.CardsFragment"
         android:label="Liste de cartes"
         tools:layout="@layout/fragment_cards"
-        />
+        >
+        <action
+            android:id="@+id/action_cardsFragment_to_navigation_notifications"
+            app:destination="@id/navigation_notifications" />
+    </fragment>
 </navigation>

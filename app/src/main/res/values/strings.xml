@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">PokemonMartin</string>
+    <string name="app_name">PokemonCardPrice</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_card_info">Carte Info</string>
     <string name="title_card">Card</string>
     <string name="title_card_fragment">List card</string>
     <string name="pokemonName">Entre le nom d\'un pokemon</string>
