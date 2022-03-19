@@ -5,7 +5,8 @@
     android:orientation="vertical"
     android:gravity="center_vertical"
     tools:context=".ui.card_search.CardSearchFragment"
-    android:background="@color/white">
+    android:background="@color/white"
+    >
 
     <TextView
         android:layout_width="match_parent"

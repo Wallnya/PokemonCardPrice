@@ -3,13 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.card_info.CardsInfoFragment">
+    tools:context=".ui.card_info.CardsInfoFragment"
+    >
 
     <TextView
         android:id="@+id/pokemonname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="PlayerName"
+        android:text="@string/playername"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="20sp" />
@@ -22,9 +23,10 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/playerAvatar"
+            android:id="@+id/cardImage"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:contentDescription="@string/image_d_une_carte_pokemon" />
     </LinearLayout>
 
     <LinearLayout
@@ -39,7 +41,7 @@
             android:layout_weight="1"
             android:background="@drawable/border"
             android:gravity="center_vertical"
-            android:text="Base"
+            android:text="@string/base"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -50,7 +52,7 @@
             android:layout_weight="1"
             android:background="@drawable/border"
             android:gravity="center_vertical"
-            android:text="Stats"
+            android:text="@string/stats"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -70,7 +72,7 @@
             android:background="@color/red"
             android:gravity="center_vertical"
             android:padding="5dp"
-            android:text="cardMarket Moyenne"
+            android:text="@string/cardmarket_moyenne"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -83,7 +85,7 @@
             android:background="@color/red"
             android:gravity="center_vertical"
             android:padding="5dp"
-            android:text="XXX"
+            android:text="@string/xxx"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -102,7 +104,7 @@
             android:layout_weight="1"
             android:background="@drawable/border"
             android:gravity="center_vertical"
-            android:text="Moyenne 1 jour"
+            android:text="@string/moyenne_1_jour"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="16sp" />
@@ -114,7 +116,7 @@
             android:layout_weight="1"
             android:background="@drawable/border"
             android:gravity="center_vertical"
-            android:text="XXX"
+            android:text="@string/xxx"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="16sp" />
@@ -135,7 +137,7 @@
             android:padding="5dp"
             android:background="@color/red"
             android:gravity="center_vertical"
-            android:text="Moyenne 7 jours"
+            android:text="@string/moyenne_7_jours"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="16sp" />
@@ -148,7 +150,7 @@
             android:padding="5dp"
             android:background="@color/red"
             android:gravity="center_vertical"
-            android:text="XXX"
+            android:text="@string/xxx"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="16sp" />
@@ -168,7 +170,7 @@
             android:layout_weight="1"
             android:background="@drawable/border"
             android:gravity="center_vertical"
-            android:text="Moyenne 30 jours"
+            android:text="@string/moyenne_30_jours"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -180,7 +182,7 @@
             android:layout_weight="1"
             android:background="@drawable/border"
             android:gravity="center_vertical"
-            android:text="XXX"
+            android:text="@string/xxx"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -201,7 +203,7 @@
             android:padding="5dp"
             android:background="@color/red"
             android:gravity="center_vertical"
-            android:text="tcgMarket marché"
+            android:text="@string/tcgmarket_march"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="16sp" />
@@ -214,7 +216,7 @@
             android:padding="5dp"
             android:background="@color/red"
             android:gravity="center_vertical"
-            android:text="XXX"
+            android:text="@string/xxx"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="16sp" />
@@ -234,7 +236,7 @@
             android:layout_weight="1"
             android:background="@drawable/border"
             android:gravity="center_vertical"
-            android:text="tcgMarket bas"
+            android:text="@string/tcgmarket_bas"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="16sp" />
@@ -246,7 +248,7 @@
             android:layout_weight="1"
             android:background="@drawable/border"
             android:gravity="center_vertical"
-            android:text="XXX"
+            android:text="@string/xxx"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="16sp" />
@@ -266,7 +268,7 @@
             android:padding="5dp"
             android:background="@color/red"
             android:gravity="center_vertical"
-            android:text="tcgMarket milieu"
+            android:text="@string/tcgmarket_milieu"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="16sp" />
@@ -279,7 +281,7 @@
             android:padding="5dp"
             android:background="@color/red"
             android:gravity="center_vertical"
-            android:text="XXX"
+            android:text="@string/xxx"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="16sp" />
@@ -299,7 +301,7 @@
             android:layout_weight="1"
             android:background="@drawable/border"
             android:gravity="center_vertical"
-            android:text="tcgMarket haut"
+            android:text="@string/tcgmarket_haut"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="16sp" />
@@ -311,12 +313,10 @@
             android:layout_weight="1"
             android:background="@drawable/border"
             android:gravity="center_vertical"
-            android:text="XXX"
+            android:text="@string/xxx"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="16sp" />
     </LinearLayout>
-
-
 
 </LinearLayout>

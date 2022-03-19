@@ -8,4 +8,18 @@
     <string name="pokemonName">Entre le nom d\'un pokemon</string>
     <string name="pokemonNameInfos">Cette opération peut prendre un certain temps</string>
     <string name="pokemonButtonName">Voir la carte demandée</string>
+    <string name="playername">PlayerName</string>
+    <string name="xxx">XXX</string>
+    <string name="base">Base</string>
+    <string name="stats">Stats</string>
+    <string name="cardmarket_moyenne">cardMarket Moyenne</string>
+    <string name="moyenne_1_jour">Moyenne 1 jour</string>
+    <string name="moyenne_7_jours">Moyenne 7 jours</string>
+    <string name="moyenne_30_jours">Moyenne 30 jours</string>
+    <string name="tcgmarket_march">tcgMarket marché</string>
+    <string name="tcgmarket_bas">tcgMarket bas</string>
+    <string name="tcgmarket_milieu">tcgMarket milieu</string>
+    <string name="tcgmarket_haut">tcgMarket haut</string>
+    <string name="image_d_une_carte_pokemon">Image d\'une carte pokemon</string>
+    <string name="add">+</string>
 </resources>
