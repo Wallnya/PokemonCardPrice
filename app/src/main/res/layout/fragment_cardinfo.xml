@@ -27,6 +27,32 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:contentDescription="@string/image_d_une_carte_pokemon" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="61dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ajouter aux favoris" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -164,44 +190,12 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/cardMarketAvg3Text"
-            android:layout_width="150dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:background="@drawable/border"
-            android:gravity="center_vertical"
-            android:text="@string/moyenne_30_jours"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/cardMarketAvg3Fill"
-            android:layout_width="150dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:background="@drawable/border"
-            android:gravity="center_vertical"
-            android:text="@string/xxx"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="355dp"
-        android:layout_height="40dp"
-        android:layout_marginHorizontal="15dp"
-        android:orientation="horizontal">
-
-        <TextView
             android:id="@+id/tcgMarketMarketText"
             android:layout_width="150dp"
             android:layout_height="40dp"
             android:layout_weight="1"
             android:padding="5dp"
-            android:background="@color/red"
+            android:background="@drawable/border"
             android:gravity="center_vertical"
             android:text="@string/tcgmarket_march"
             android:textStyle="bold"
@@ -214,7 +208,7 @@
             android:layout_height="40dp"
             android:layout_weight="1"
             android:padding="5dp"
-            android:background="@color/red"
+            android:background="@drawable/border"
             android:gravity="center_vertical"
             android:text="@string/xxx"
             android:textStyle="bold"
@@ -234,7 +228,8 @@
             android:layout_width="150dp"
             android:layout_height="40dp"
             android:layout_weight="1"
-            android:background="@drawable/border"
+            android:padding="5dp"
+            android:background="@color/red"
             android:gravity="center_vertical"
             android:text="@string/tcgmarket_bas"
             android:textStyle="bold"
@@ -246,72 +241,8 @@
             android:layout_width="150dp"
             android:layout_height="40dp"
             android:layout_weight="1"
-            android:background="@drawable/border"
-            android:gravity="center_vertical"
-            android:text="@string/xxx"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="355dp"
-        android:layout_height="40dp"
-        android:layout_marginHorizontal="15dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/tcgMarketMidText"
-            android:layout_width="150dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
             android:padding="5dp"
             android:background="@color/red"
-            android:gravity="center_vertical"
-            android:text="@string/tcgmarket_milieu"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/tcgMarketMidFill"
-            android:layout_width="150dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:padding="5dp"
-            android:background="@color/red"
-            android:gravity="center_vertical"
-            android:text="@string/xxx"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="355dp"
-        android:layout_height="40dp"
-        android:layout_marginHorizontal="15dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/tcgMarketHighText"
-            android:layout_width="150dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:background="@drawable/border"
-            android:gravity="center_vertical"
-            android:text="@string/tcgmarket_haut"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/tcgMarketHighFill"
-            android:layout_width="150dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:background="@drawable/border"
             android:gravity="center_vertical"
             android:text="@string/xxx"
             android:textStyle="bold"

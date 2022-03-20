@@ -30,8 +30,6 @@ import java.util.Date;
 public class DashboardFragment extends Fragment {
 
     private FragmentDashboardBinding binding;
-    // creating a variable
-    // for our graph view.
     GraphView graphView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,

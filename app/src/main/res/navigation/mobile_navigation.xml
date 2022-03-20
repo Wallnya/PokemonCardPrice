@@ -41,4 +41,9 @@
             android:id="@+id/action_cardsFragment_to_navigation_notifications"
             app:destination="@id/navigation_notifications" />
     </fragment>
+    <fragment
+        android:id="@+id/favorisFragment2"
+        android:name="com.example.pokemoncardprice.ui.card_search.CardSearchFragment"
+        android:label="FavorisFragment"
+        tools:layout="@layout/fragment_cardsearch" />
 </navigation>

@@ -5,6 +5,7 @@
     <string name="title_card_info">Carte Info</string>
     <string name="title_card">Card</string>
     <string name="title_card_fragment">List card</string>
+    <string name="title_favoris">Favoris</string>
     <string name="pokemonName">Entre le nom d\'un pokemon</string>
     <string name="pokemonNameInfos">Cette opération peut prendre un certain temps</string>
     <string name="pokemonButtonName">Voir la carte demandée</string>
