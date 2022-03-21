@@ -1,6 +1,7 @@
 package com.example.pokemoncardprice.ui.favoris;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,18 +16,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pokemoncardprice.R;
-import com.example.pokemoncardprice.databinding.FragmentCardsearchBinding;
 import com.example.pokemoncardprice.databinding.FragmentFavorisBinding;
+import com.example.pokemoncardprice.models.CardItem;
 import com.example.pokemoncardprice.models.VerticalSpacingDecoration;
-import com.example.pokemoncardprice.ui.card.CardsListItemAdapter;
-import com.example.pokemoncardprice.ui.card.CardsViewModel;
-import com.example.pokemoncardprice.ui.card_info.CardsInfoViewModel;
 import com.example.pokemoncardprice.ui.card_search.CardSearchFragment;
 
 public class FavorisFragment extends Fragment {
 
-    private CardsViewModel cardsViewModel;
+    private FavorisViewModel favorisViewModel;
     private FragmentFavorisBinding binding;
+    private static final int VERTICAL_ITEM_SPACE = 24;
 
     public static CardSearchFragment newInstance() {
         return new CardSearchFragment();
@@ -35,24 +34,35 @@ public class FavorisFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        cardsViewModel =
-                new ViewModelProvider(requireActivity()).get(CardsViewModel.class);
+        favorisViewModel =
+                new ViewModelProvider(requireActivity()).get(FavorisViewModel.class);
 
         binding = FragmentFavorisBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        /*binding.button.setOnClickListener(v -> {
-            String playerTag = binding.playerTag.getText().toString();
-            cardsViewModel.getCard(playerTag).observe(getViewLifecycleOwner(), cardItem -> {
-                if (!cardItem.isEmpty()) {
-                    Navigation.findNavController(root).navigate(R.id.action_cardSearchFragment_to_cardsFragment);
-                }
-                else {
-                    Toast.makeText(getContext(), "Pas de carte", Toast.LENGTH_LONG).show();
-                }
-            });
-        });*/
+        final RecyclerView recyclerView = binding.rankingListView;
 
+        recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        recyclerView.addItemDecoration(new VerticalSpacingDecoration(VERTICAL_ITEM_SPACE));
+
+        favorisViewModel.getCardInfo().observe(getViewLifecycleOwner(), cardListItems -> {
+            FavorisListItemAdapter adapter = new FavorisListItemAdapter(cardListItems);
+            adapter.setClickListener((view, position) -> {
+                CardItem selectecCardItem = cardListItems.get(position);
+
+                Log.i("POSITION", String.valueOf(position));
+                Log.i("CARD_NAME", selectecCardItem.getName());
+
+                favorisViewModel.getCardInfo(selectecCardItem.getId()).observe(getViewLifecycleOwner(), cardItem -> {
+                    if (cardItem != null) {
+                        Navigation.findNavController(root).navigate(R.id.action_cardsFragment_to_navigation_notifications);
+                    } else {
+                        Toast.makeText(getContext(), "Une erreur est parvenue pendant la recherche de la carte", Toast.LENGTH_LONG).show();
+                    }
+                });
+            });
+            recyclerView.setAdapter(adapter);
+        });
         return root;
     }
 

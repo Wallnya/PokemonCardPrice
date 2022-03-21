@@ -43,7 +43,7 @@
     </fragment>
     <fragment
         android:id="@+id/favorisFragment2"
-        android:name="com.example.pokemoncardprice.ui.card_search.CardSearchFragment"
-        android:label="FavorisFragment"
-        tools:layout="@layout/fragment_cardsearch" />
+        android:name="com.example.pokemoncardprice.ui.favoris.FavorisFragment"
+        android:label="Liste des favoris"
+        tools:layout="@layout/fragment_favoris" />
 </navigation>

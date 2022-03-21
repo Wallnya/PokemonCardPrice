@@ -39,7 +39,7 @@ public class CardsListItemAdapter extends RecyclerView.Adapter<CardsListItemAdap
             if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
         }
 
-        public TextView getRankView() {
+        public TextView getIdView() {
             return idView;
         }
 
@@ -47,9 +47,9 @@ public class CardsListItemAdapter extends RecyclerView.Adapter<CardsListItemAdap
             return nameView;
         }
 
-        public TextView getClubNameView() {return extensionView;}
+        public TextView getExtensionView() {return extensionView;}
 
-        public ImageView getAvatarView() {return extensionAvatarView;}
+        public ImageView getExtensionImageView() {return extensionAvatarView;}
     }
 
     public CardsListItemAdapter(List<CardItem> dataSet) {
@@ -74,10 +74,10 @@ public class CardsListItemAdapter extends RecyclerView.Adapter<CardsListItemAdap
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         CardItem CardItem = mDataSet.get(position);
 
-        viewHolder.getRankView().setText(CardItem.getId());
+        viewHolder.getIdView().setText(CardItem.getId());
         viewHolder.getNameView().setText(CardItem.getName());
-        viewHolder.getClubNameView().setText(CardItem.getExtension());
-        Picasso.get().load(CardItem.getExtensionImage()).into(viewHolder.getAvatarView());
+        viewHolder.getExtensionView().setText(CardItem.getExtension());
+        Picasso.get().load(CardItem.getExtensionImage()).into(viewHolder.getExtensionImageView());
 
     }
 

@@ -5,7 +5,13 @@
     android:orientation="vertical"
     tools:context=".ui.favoris.FavorisFragment"
     >
-
+    <Button
+        android:id="@+id/button"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/white"
+        android:text="@string/updateFavoris" />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rankingListView"
         android:layout_width="match_parent"

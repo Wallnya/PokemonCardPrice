@@ -43,16 +43,12 @@
         android:autofillHints="pikachu"
         tools:ignore="LabelFor" />
 
-    <androidx.appcompat.widget.AppCompatButton
-
-    android:id="@+id/button"
-        style="@android:style/Widget.Material.Button"
+    <Button
+        android:id="@+id/button"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:background="#A43131"
         android:textColor="@color/white"
         android:text="@string/pokemonButtonName" />
-
 
 </LinearLayout>

@@ -54,6 +54,15 @@ public class CardItem {
         this.date = date;
     }
 
+    public CardItem(String id, String name, String extension, String extensionImage, String cardMarketaverageSellPrice, String date) {
+        this.id = id;
+        this.name = name;
+        this.extension = extension;
+        this.extensionImage = extensionImage;
+        this.cardMarketaverageSellPrice = cardMarketaverageSellPrice;
+        this.date = date;
+    }
+
     public String getId() {
         return id;
     }

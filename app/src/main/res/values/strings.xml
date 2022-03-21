@@ -2,13 +2,15 @@
     <string name="app_name">PokemonCardPrice</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
-    <string name="title_card_info">Carte Info</string>
-    <string name="title_card">Card</string>
+    <string name="title_card_info_bottom">Infos</string>
+    <string name="title_card_info">Information de la carte</string>
+    <string name="title_card">Recherche</string>
     <string name="title_card_fragment">List card</string>
     <string name="title_favoris">Favoris</string>
     <string name="pokemonName">Entre le nom d\'un pokemon</string>
     <string name="pokemonNameInfos">Cette opération peut prendre un certain temps</string>
     <string name="pokemonButtonName">Voir la carte demandée</string>
+    <string name="updateFavoris">Actualiser les favoris</string>
     <string name="playername">PlayerName</string>
     <string name="xxx">XXX</string>
     <string name="base">Base</string>

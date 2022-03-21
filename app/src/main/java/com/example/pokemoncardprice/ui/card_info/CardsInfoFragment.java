@@ -89,8 +89,10 @@ public class CardsInfoFragment extends Fragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                //Si la carte ne fait pas parti des sauvegardes
                 if(!alreadyfound){
                     try {
+                        //On crée la carte avec les infos intéressantes
                         JSONArray jsonArray = new JSONArray();
                         JSONObject pokemon = new JSONObject();
                         JSONObject prices = new JSONObject();
@@ -126,7 +128,6 @@ public class CardsInfoFragment extends Fragment {
                 Toast.makeText(getContext(), "Le fichier est créé, veuillez recliquer pour l'ajouter aux favoris", Toast.LENGTH_LONG).show();
 
             }
-            //Navigation.findNavController(root).navigate(R.id.navigation_dashboard);
         });
         return root;
     }
@@ -160,7 +161,6 @@ public class CardsInfoFragment extends Fragment {
     }
 
     private boolean create(Context context, String fileName, String jsonString){
-        String FILENAME = "data.json";
         try {
             FileOutputStream fos = context.openFileOutput(fileName,Context.MODE_PRIVATE);
             if (jsonString != null) {
