@@ -1,19 +1,91 @@
 package com.example.pokemoncardprice.ui.dashboard;
 
+import android.app.Application;
+import android.content.Context;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class DashboardViewModel extends ViewModel {
+import com.example.pokemoncardprice.models.CardItem;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+
+public class DashboardViewModel extends AndroidViewModel {
+    private MutableLiveData<CardItem> cardItems;
+    public static String playerTag;
 
     private final MutableLiveData<String> mText;
 
-    public DashboardViewModel() {
+    public DashboardViewModel(@NonNull Application application) {
+        super(application);
         mText = new MutableLiveData<>();
-        mText.setValue("This is dashboard fragment");
+    }
+
+    public LiveData<CardItem> getCardInfo(String playerTag) {
+        DashboardViewModel.playerTag = playerTag;
+        cardItems = new MutableLiveData<>();
+        cardItems = retrieveData(cardItems, playerTag);
+        return cardItems;
+    }
+
+    private MutableLiveData<CardItem> retrieveData(MutableLiveData<CardItem> mCards, String id){
+        String jsonString = read(getApplication().getApplicationContext(), "data.json");
+        JSONObject obj;
+        CardItem card = null;
+        try {
+            obj = new JSONObject(jsonString);
+            JSONArray array=obj.getJSONArray("data");
+            for(int i=0;i<array.length();i++){
+                if(array.getJSONObject(i).getString("id").equals(id)){
+                    String extensionUrl = array.getJSONObject(i).getString("extensionImage").replace("\"","");
+                    card = new CardItem(array.getJSONObject(i).getString("id"),array.getJSONObject(i).getString("name"),
+                            array.getJSONObject(i).getString("extension"),extensionUrl,array.getJSONObject(i).getJSONObject("prices").getString("prix"),array.getJSONObject(i).getJSONObject("prices").getString("date"));
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        mCards.setValue(card);
+        return mCards;
     }
 
     public LiveData<String> getText() {
         return mText;
+    }
+
+    public String getID(){
+        return DashboardViewModel.playerTag;
+    }
+
+
+    private String read(Context context, String fileName) {
+        try {
+            FileInputStream fis = context.openFileInput(fileName);
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader bufferedReader = new BufferedReader(isr);
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                sb.append(line);
+            }
+            return sb.toString();
+        } catch (FileNotFoundException fileNotFound) {
+            return null;
+        } catch (IOException ioException) {
+            return null;
+        }
     }
 }

@@ -34,19 +34,19 @@ public class CardsViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<CardItem>> getCard(String playerTag) {
+        System.out.println("coucou1");
         CardsViewModel.playerTag = playerTag;
+        System.out.println("coucou2");
         mCards = new MutableLiveData<>();
         List<CardItem> cardItems = new ArrayList<>();
         CardAPI.getCard(playerTag, getApplication().getApplicationContext(), response -> {
+            System.out.println("coucou3");
             mCards = retrieveData(response,cardItems);
+            System.out.println("coucou4");
             mCards.setValue(cardItems);
         }, error -> {
             mCards.setValue(null);
         });
-        return mCards;
-    }
-
-    public LiveData<List<CardItem>> getListCards() {
         return mCards;
     }
 

@@ -22,10 +22,6 @@ public class CardSearchFragment extends Fragment {
     private CardsViewModel cardsViewModel;
     private FragmentCardsearchBinding binding;
 
-    public static CardSearchFragment newInstance() {
-        return new CardSearchFragment();
-    }
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {

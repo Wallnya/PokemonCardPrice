@@ -27,8 +27,6 @@ import java.util.List;
 
 public class FavorisViewModel extends AndroidViewModel {
     private MutableLiveData<List<CardItem>> mCards;
-    private MutableLiveData<CardItem> cardItems;
-
 
     public FavorisViewModel(@NonNull Application application) {
         super(application);
@@ -42,10 +40,9 @@ public class FavorisViewModel extends AndroidViewModel {
     }
 
     private MutableLiveData<List<CardItem>> retrieveData(MutableLiveData<List<CardItem>> mCards, String id){
-        mCards = new MutableLiveData<>();
         List<CardItem> cardItems = new ArrayList<>();
         String jsonString = read(getApplication().getApplicationContext(), "data.json");
-        JSONObject obj = null;
+        JSONObject obj;
         try {
             obj = new JSONObject(jsonString);
             JSONArray array=obj.getJSONArray("data");

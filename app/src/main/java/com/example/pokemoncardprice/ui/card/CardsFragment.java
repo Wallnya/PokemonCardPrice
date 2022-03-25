@@ -1,22 +1,23 @@
 package com.example.pokemoncardprice.ui.card;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.pokemoncardprice.R;
 import com.example.pokemoncardprice.databinding.FragmentCardsBinding;
 import com.example.pokemoncardprice.models.CardItem;
 import com.example.pokemoncardprice.models.VerticalSpacingDecoration;
 import com.example.pokemoncardprice.ui.card_info.CardsInfoViewModel;
-
 
 public class CardsFragment extends Fragment {
 
@@ -44,18 +45,15 @@ public class CardsFragment extends Fragment {
             CardsListItemAdapter adapter = new CardsListItemAdapter(cardListItems);
 
             adapter.setClickListener((view, position) -> {
-                CardItem selectecCardItem = cardListItems.get(position);
+                CardItem selectedCardItem = cardListItems.get(position);
 
-                Log.i("POSITION", String.valueOf(position));
-                Log.i("CARD_NAME", selectecCardItem.getName());
-
-                /*cardsInfoViewModel.getCardInfo(selectecCardItem.getId()).observe(getViewLifecycleOwner(), cardItem -> {
+                cardsInfoViewModel.getCardInfo(selectedCardItem.getId()).observe(getViewLifecycleOwner(), cardItem -> {
                     if (cardItem != null) {
                         Navigation.findNavController(root).navigate(R.id.action_cardsFragment_to_navigation_notifications);
                     } else {
                         Toast.makeText(getContext(), "Une erreur est parvenue pendant la recherche de la carte", Toast.LENGTH_LONG).show();
                     }
-                });*/
+                });
             });
 
             recyclerView.setAdapter(adapter);

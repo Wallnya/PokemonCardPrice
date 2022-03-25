@@ -49,7 +49,6 @@ public class CardsInfoViewModel extends AndroidViewModel {
         try {
             JSONObject cardInfo = response.getJSONObject("data");
             String id = cardInfo.getString("id");
-            System.out.println("je casse ici"+id);
             String name = cardInfo.getString("name");
             String set = cardInfo.getJSONObject("set").getString("name");
             String setImage = cardInfo.getJSONObject("set").getJSONObject("images").getString("symbol");
@@ -61,8 +60,6 @@ public class CardsInfoViewModel extends AndroidViewModel {
             if(cardInfo.has("cardmarket")) {
                 if (cardInfo.getJSONObject("cardmarket").has("prices")) {
                     cardMarketaverageSellPrice = cardInfo.getJSONObject("cardmarket").getJSONObject("prices").getString("trendPrice");
-                    System.out.println("je casse et c'est sur cette valeur"+cardMarketaverageSellPrice);
-
                     cardMarketavg1 = cardInfo.getJSONObject("cardmarket").getJSONObject("prices").getString("avg1");
                     cardMarketavg7 = cardInfo.getJSONObject("cardmarket").getJSONObject("prices").getString("avg7");
                     cardMarketavg30 = cardInfo.getJSONObject("cardmarket").getJSONObject("prices").getString("avg30");

@@ -1,7 +1,6 @@
 package com.example.pokemoncardprice.ui.favoris;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,16 +19,14 @@ import com.example.pokemoncardprice.databinding.FragmentFavorisBinding;
 import com.example.pokemoncardprice.models.CardItem;
 import com.example.pokemoncardprice.models.VerticalSpacingDecoration;
 import com.example.pokemoncardprice.ui.card_search.CardSearchFragment;
+import com.example.pokemoncardprice.ui.dashboard.DashboardViewModel;
 
 public class FavorisFragment extends Fragment {
 
     private FavorisViewModel favorisViewModel;
+    private DashboardViewModel dashboardViewModel;
     private FragmentFavorisBinding binding;
     private static final int VERTICAL_ITEM_SPACE = 24;
-
-    public static CardSearchFragment newInstance() {
-        return new CardSearchFragment();
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -37,6 +34,8 @@ public class FavorisFragment extends Fragment {
         favorisViewModel =
                 new ViewModelProvider(requireActivity()).get(FavorisViewModel.class);
 
+        dashboardViewModel =
+                new ViewModelProvider(requireActivity()).get(DashboardViewModel.class);
         binding = FragmentFavorisBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
@@ -48,14 +47,11 @@ public class FavorisFragment extends Fragment {
         favorisViewModel.getCardInfo().observe(getViewLifecycleOwner(), cardListItems -> {
             FavorisListItemAdapter adapter = new FavorisListItemAdapter(cardListItems);
             adapter.setClickListener((view, position) -> {
-                CardItem selectecCardItem = cardListItems.get(position);
+                CardItem selectedCardItem = cardListItems.get(position);
 
-                Log.i("POSITION", String.valueOf(position));
-                Log.i("CARD_NAME", selectecCardItem.getName());
-
-                favorisViewModel.getCardInfo(selectecCardItem.getId()).observe(getViewLifecycleOwner(), cardItem -> {
+                dashboardViewModel.getCardInfo(selectedCardItem.getId()).observe(getViewLifecycleOwner(), cardItem -> {
                     if (cardItem != null) {
-                        Navigation.findNavController(root).navigate(R.id.action_cardsFragment_to_navigation_notifications);
+                        Navigation.findNavController(root).navigate(R.id.action_favorisFragment2_to_navigation_dashboard);
                     } else {
                         Toast.makeText(getContext(), "Une erreur est parvenue pendant la recherche de la carte", Toast.LENGTH_LONG).show();
                     }

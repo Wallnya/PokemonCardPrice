@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">PokemonCardPrice</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
+    <string name="title_home">Accueil</string>
+    <string name="title_dashboard">Graphique</string>
     <string name="title_card_info_bottom">Infos</string>
     <string name="title_card_info">Information de la carte</string>
     <string name="title_card">Recherche</string>
@@ -25,4 +25,6 @@
     <string name="tcgmarket_haut">tcgMarket haut</string>
     <string name="image_d_une_carte_pokemon">Image d\'une carte pokemon</string>
     <string name="add">+</string>
+    <string name="carte_moyenne_du_dernier_jour">Carte moyenne du dernier jour</string>
+    <string name="favorisbutton">Voir ses infos</string>
 </resources>
