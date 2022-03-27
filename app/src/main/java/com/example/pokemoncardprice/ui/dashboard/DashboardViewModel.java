@@ -52,7 +52,8 @@ public class DashboardViewModel extends AndroidViewModel {
                 if(array.getJSONObject(i).getString("id").equals(id)){
                     String extensionUrl = array.getJSONObject(i).getString("extensionImage").replace("\"","");
                     card = new CardItem(array.getJSONObject(i).getString("id"),array.getJSONObject(i).getString("name"),
-                            array.getJSONObject(i).getString("extension"),extensionUrl,array.getJSONObject(i).getJSONObject("prices").getString("prix"),array.getJSONObject(i).getJSONObject("prices").getString("date"));
+                            array.getJSONObject(i).getString("extension"),extensionUrl,array.getJSONObject(i).getJSONArray("prices").getJSONObject(0).getString("prix"),array.getJSONObject(i).getJSONArray("prices").getJSONObject(0).getString("date"),
+                            array.getJSONObject(i).getString("releasedDate"));
                 }
             }
         } catch (JSONException e) {

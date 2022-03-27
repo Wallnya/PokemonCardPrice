@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.dashboard.DashboardFragment"
+    android:background="@color/white"
     >
 
     <TextView
@@ -28,12 +29,13 @@
 
     <com.jjoe64.graphview.GraphView
         android:id="@+id/idGraphView"
-        android:layout_width="394dp"
-        android:layout_height="410dp"
+        android:layout_width="408dp"
+        android:layout_height="407dp"
         android:layout_alignParentTop="true"
+        android:background="@color/pink"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="9dp"
-        tools:layout_editor_absoluteY="48dp" />
+        tools:layout_editor_absoluteX="-5dp"
+        tools:layout_editor_absoluteY="51dp" />
 
     <Button
         android:id="@+id/button"
@@ -42,6 +44,7 @@
         android:layout_gravity="center_horizontal"
         android:text="@string/favorisbutton"
         android:textColor="@color/white"
+        android:background="@drawable/redbutton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"

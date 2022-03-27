@@ -20,14 +20,14 @@ public class CardsListItemAdapter extends RecyclerView.Adapter<CardsListItemAdap
     private CardsListItemAdapter.ItemClickListener mClickListener;
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private final TextView idView;
+        private final TextView releasedDateView;
         private final TextView nameView;
         private final TextView extensionView;
         private final ImageView extensionAvatarView;
 
         public ViewHolder(View v) {
             super(v);
-            idView = (TextView) v.findViewById(R.id.textView6);
+            releasedDateView = (TextView) v.findViewById(R.id.textView6);
             nameView = (TextView) v.findViewById(R.id.textView4);
             extensionView = (TextView) v.findViewById(R.id.textView5);
             extensionAvatarView = (ImageView) v.findViewById(R.id.imageView);
@@ -39,8 +39,8 @@ public class CardsListItemAdapter extends RecyclerView.Adapter<CardsListItemAdap
             if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
         }
 
-        public TextView getIdView() {
-            return idView;
+        public TextView getReleasedDateView() {
+            return releasedDateView;
         }
 
         public TextView getNameView() {
@@ -74,7 +74,7 @@ public class CardsListItemAdapter extends RecyclerView.Adapter<CardsListItemAdap
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         CardItem CardItem = mDataSet.get(position);
 
-        viewHolder.getIdView().setText(CardItem.getId());
+        viewHolder.getReleasedDateView().setText(CardItem.getReleasedDate());
         viewHolder.getNameView().setText(CardItem.getName());
         viewHolder.getExtensionView().setText(CardItem.getExtension());
         Picasso.get().load(CardItem.getExtensionImage()).into(viewHolder.getExtensionImageView());

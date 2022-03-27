@@ -12,6 +12,10 @@ import com.example.pokemoncardprice.net.CardInfoAPI;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class CardsInfoViewModel extends AndroidViewModel {
 
     private MutableLiveData<CardItem> cardItems;
@@ -52,6 +56,14 @@ public class CardsInfoViewModel extends AndroidViewModel {
             String name = cardInfo.getString("name");
             String set = cardInfo.getJSONObject("set").getString("name");
             String setImage = cardInfo.getJSONObject("set").getJSONObject("images").getString("symbol");
+
+            String releasedDate = cardInfo.getJSONObject("set").getString("releaseDate");
+
+            SimpleDateFormat spf = new SimpleDateFormat("yyyy/MM/dd");
+            Date newDate = spf.parse(releasedDate);
+            spf = new SimpleDateFormat("dd/MM/yyyy");
+            String newDateString = spf.format(newDate);
+
             String cardMarketaverageSellPrice = " / ";
             String cardMarketavg1 = " / ";
             String cardMarketavg7 = " / ";
@@ -73,7 +85,9 @@ public class CardsInfoViewModel extends AndroidViewModel {
             if(cardInfo.has("tcgplayer")){
                 if(cardInfo.getJSONObject("tcgplayer").has("prices")){
                     if(cardInfo.getJSONObject("tcgplayer").getJSONObject("prices").has("holofoil")){
-                        tcgPlayerMarket = cardInfo.getJSONObject("tcgplayer").getJSONObject("prices").getJSONObject("holofoil").getString("market");
+                        if(cardInfo.getJSONObject("tcgplayer").getJSONObject("prices").getJSONObject("holofoil").has("market")){
+                            tcgPlayerMarket = cardInfo.getJSONObject("tcgplayer").getJSONObject("prices").getJSONObject("holofoil").getString("market");
+                        }
                         tcgPlayerLow = cardInfo.getJSONObject("tcgplayer").getJSONObject("prices").getJSONObject("holofoil").getString("low");
                         tcgPlayerMid = cardInfo.getJSONObject("tcgplayer").getJSONObject("prices").getJSONObject("holofoil").getString("mid");
                         tcgPlayerHigh = cardInfo.getJSONObject("tcgplayer").getJSONObject("prices").getJSONObject("holofoil").getString("high");
@@ -96,12 +110,14 @@ public class CardsInfoViewModel extends AndroidViewModel {
             String cardImage = cardInfo.getJSONObject("images").getString("small");
 
             CardItem cardItem = new CardItem(id, name, set,setImage,cardMarketaverageSellPrice,cardMarketavg1,cardMarketavg7,cardMarketavg30,tcgPlayerMarket,
-                    tcgPlayerLow,tcgPlayerMid,tcgPlayerHigh,rarity,cardImage,date);
+                    tcgPlayerLow,tcgPlayerMid,tcgPlayerHigh,rarity,cardImage,date,newDateString);
             cardItems.setValue(cardItem);
 
         } catch (JSONException e) {
             e.printStackTrace();
             cardItems.setValue(null);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
         return cardItems;
     }

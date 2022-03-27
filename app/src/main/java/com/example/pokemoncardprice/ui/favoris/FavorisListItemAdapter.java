@@ -72,7 +72,7 @@ public class FavorisListItemAdapter extends RecyclerView.Adapter<FavorisListItem
     @Override
     public void onBindViewHolder(FavorisListItemAdapter.ViewHolder viewHolder, final int position) {
         CardItem CardItem = mDataSet.get(position);
-        viewHolder.getIdView().setText(CardItem.getId());
+        viewHolder.getIdView().setText(CardItem.getReleasedDate());
         viewHolder.getNameView().setText(CardItem.getName());
         viewHolder.getExtensionView().setText(CardItem.getExtension());
         Picasso.get().load(CardItem.getExtensionImage()).into(viewHolder.getExtensionImageView());

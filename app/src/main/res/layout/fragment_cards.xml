@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ui.card.CardsFragment"
+    android:background="@color/white"
     >
 
     <androidx.recyclerview.widget.RecyclerView

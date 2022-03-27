@@ -13,7 +13,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class CardsViewModel extends AndroidViewModel {
@@ -34,15 +38,11 @@ public class CardsViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<CardItem>> getCard(String playerTag) {
-        System.out.println("coucou1");
         CardsViewModel.playerTag = playerTag;
-        System.out.println("coucou2");
         mCards = new MutableLiveData<>();
         List<CardItem> cardItems = new ArrayList<>();
         CardAPI.getCard(playerTag, getApplication().getApplicationContext(), response -> {
-            System.out.println("coucou3");
             mCards = retrieveData(response,cardItems);
-            System.out.println("coucou4");
             mCards.setValue(cardItems);
         }, error -> {
             mCards.setValue(null);
@@ -58,6 +58,13 @@ public class CardsViewModel extends AndroidViewModel {
                 String id = cardItemJson.getString("id");
                 String name = cardItemJson.getString("name");
                 String set = cardItemJson.getJSONObject("set").getString("name");
+                String releasedDate = cardItemJson.getJSONObject("set").getString("releaseDate");
+
+                SimpleDateFormat spf = new SimpleDateFormat("yyyy/MM/dd");
+                Date newDate = spf.parse(releasedDate);
+                spf = new SimpleDateFormat("dd/MM/yyyy");
+                String newDateString = spf.format(newDate);
+
                 String setImage = cardItemJson.getJSONObject("set").getJSONObject("images").getString("symbol");
                 String cardMarketaverageSellPrice = " / ";
                 String cardMarketavg1 = " / ";
@@ -84,7 +91,9 @@ public class CardsViewModel extends AndroidViewModel {
                 if(cardItemJson.has("tcgplayer")){
                     if(cardItemJson.getJSONObject("tcgplayer").has("prices")){
                         if(cardItemJson.getJSONObject("tcgplayer").getJSONObject("prices").has("holofoil")){
-                            tcgPlayerMarket = cardItemJson.getJSONObject("tcgplayer").getJSONObject("prices").getJSONObject("holofoil").getString("market");
+                            if(cardItemJson.getJSONObject("tcgplayer").getJSONObject("prices").getJSONObject("holofoil").has("market")){
+                                tcgPlayerMarket = cardItemJson.getJSONObject("tcgplayer").getJSONObject("prices").getJSONObject("holofoil").getString("market");
+                            }
                             tcgPlayerLow = cardItemJson.getJSONObject("tcgplayer").getJSONObject("prices").getJSONObject("holofoil").getString("low");
                             tcgPlayerMid = cardItemJson.getJSONObject("tcgplayer").getJSONObject("prices").getJSONObject("holofoil").getString("mid");
                             tcgPlayerHigh = cardItemJson.getJSONObject("tcgplayer").getJSONObject("prices").getJSONObject("holofoil").getString("high");
@@ -105,14 +114,25 @@ public class CardsViewModel extends AndroidViewModel {
                     rarity = "no rarity";
                 }
                 CardItem cardItem = new CardItem(id, name, set,setImage,cardMarketaverageSellPrice,cardMarketavg1,cardMarketavg7,cardMarketavg30,tcgPlayerMarket,
-                        tcgPlayerLow,tcgPlayerMid,tcgPlayerHigh,rarity);
+                        tcgPlayerLow,tcgPlayerMid,tcgPlayerHigh,rarity,newDateString);
                 cardItems.add(cardItem);
             }
         } catch (JSONException e) {
             e.printStackTrace();
             mCards.setValue(null);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
         return mCards;
+    }
+    private Date stringToDate(String aDate,String aFormat) {
+
+        if(aDate==null) return null;
+        ParsePosition pos = new ParsePosition(0);
+        SimpleDateFormat simpledateformat = new SimpleDateFormat(aFormat);
+        Date stringDate = simpledateformat.parse(aDate, pos);
+        return stringDate;
+
     }
 
 }

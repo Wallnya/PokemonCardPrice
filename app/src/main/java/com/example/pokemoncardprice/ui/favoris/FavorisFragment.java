@@ -21,6 +21,12 @@ import com.example.pokemoncardprice.models.VerticalSpacingDecoration;
 import com.example.pokemoncardprice.ui.card_search.CardSearchFragment;
 import com.example.pokemoncardprice.ui.dashboard.DashboardViewModel;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
 public class FavorisFragment extends Fragment {
 
     private FavorisViewModel favorisViewModel;
@@ -58,6 +64,38 @@ public class FavorisFragment extends Fragment {
                 });
             });
             recyclerView.setAdapter(adapter);
+        });
+
+        binding.button.setOnClickListener(v -> {
+            String jsonString = favorisViewModel.read(getActivity(), "data.json");
+            JSONObject obj;
+            ArrayList<String> arrayID = new ArrayList<String>();
+           /* try {
+                obj = new JSONObject(jsonString);
+                JSONArray array=obj.getJSONArray("data");
+                for(int i=0;i<array.length();i++){
+                    int finalI = i;
+                    favorisViewModel.updateCard(array.getJSONObject(i).getString("id")).observe(getViewLifecycleOwner(), cardItems -> {
+                        JSONObject pokemon = new JSONObject();
+                        JSONObject prices = new JSONObject();
+                        try {
+                            prices.put("date",cardItems.getDate());
+                            prices.put("prix",cardItems.getcardMarketaverageSellPrice());
+                            pokemon.put("prices",prices);
+                            array.getJSONObject(finalI)..put("prices",pokemon);
+                            writeToFile(obj.toString());
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        //arrayID.add(array.getJSONObject(i).getString("id"));
+                    });
+                }
+                System.out.println("Liste ID:"+arrayID);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }*/
         });
         return root;
     }

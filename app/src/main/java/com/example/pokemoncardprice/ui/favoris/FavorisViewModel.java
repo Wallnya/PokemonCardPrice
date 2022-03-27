@@ -27,11 +27,21 @@ import java.util.List;
 
 public class FavorisViewModel extends AndroidViewModel {
     private MutableLiveData<List<CardItem>> mCards;
+    private MutableLiveData<CardItem> cardItems;
 
     public FavorisViewModel(@NonNull Application application) {
         super(application);
         mCards = new MutableLiveData<>();
         mCards = retrieveData(mCards,"");
+    }
+
+    public MutableLiveData<CardItem> updateCard(String playerTag) {
+        CardInfoAPI.getCardInfo(playerTag, getApplication().getApplicationContext(), response -> {
+            cardItems = retrieveDataOneCard(response);
+        }, error -> {
+            cardItems.setValue(null);
+        });
+        return cardItems;
     }
 
     public MutableLiveData<List<CardItem>> getCardInfo() {
@@ -49,7 +59,7 @@ public class FavorisViewModel extends AndroidViewModel {
             for(int i=0;i<array.length();i++){
                 String extensionUrl = array.getJSONObject(i).getString("extensionImage").replace("\"","");
                 CardItem card = new CardItem(array.getJSONObject(i).getString("id"),array.getJSONObject(i).getString("name"),
-                        array.getJSONObject(i).getString("extension"),extensionUrl,array.getJSONObject(i).getJSONObject("prices").getString("prix"),array.getJSONObject(i).getJSONObject("prices").getString("date"));
+                        array.getJSONObject(i).getString("extension"),extensionUrl,array.getJSONObject(i).getJSONArray("prices").getJSONObject(0).getString("prix"),array.getJSONObject(i).getJSONArray("prices").getJSONObject(0).getString("date"), array.getJSONObject(i).getString("releasedDate"));
                 cardItems.add(card);
             }
         } catch (JSONException e) {
@@ -59,7 +69,29 @@ public class FavorisViewModel extends AndroidViewModel {
         return mCards;
     }
 
-    private String read(Context context, String fileName) {
+
+    public MutableLiveData<CardItem> retrieveDataOneCard(JSONObject response){
+        try {
+            JSONObject cardInfo = response.getJSONObject("data");
+            String id = cardInfo.getString("id");
+            String cardMarketaverageSellPrice = " / ";
+            String date = " / ";
+            if(cardInfo.has("cardmarket")) {
+                if (cardInfo.getJSONObject("cardmarket").has("prices")) {
+                    cardMarketaverageSellPrice = cardInfo.getJSONObject("cardmarket").getJSONObject("prices").getString("trendPrice");
+                    date = cardInfo.getJSONObject("cardmarket").getString("updatedAt");
+                }
+            }
+            CardItem cardItem = new CardItem(id,cardMarketaverageSellPrice,date);
+            cardItems.setValue(cardItem);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            cardItems.setValue(null);
+        }
+        return cardItems;
+    }
+
+    public String read(Context context, String fileName) {
         try {
             FileInputStream fis = context.openFileInput(fileName);
             InputStreamReader isr = new InputStreamReader(fis);
@@ -76,4 +108,5 @@ public class FavorisViewModel extends AndroidViewModel {
             return null;
         }
     }
+
 }

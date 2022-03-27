@@ -39,6 +39,7 @@ public class CardsInfoFragment extends Fragment {
     private String extensionImage;
     private String cardMarketaverageSellPrice;
     private String date;
+    private String releasedDate;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -54,6 +55,7 @@ public class CardsInfoFragment extends Fragment {
                 name = cardinfoItem.getName();
                 extension = cardinfoItem.getExtension();
                 extensionImage = cardinfoItem.getExtensionImage();
+                releasedDate = cardinfoItem.getReleasedDate();
                 cardMarketaverageSellPrice = cardinfoItem.getcardMarketaverageSellPrice();
                 date = cardinfoItem.getDate();
                 binding.pokemonname.setText(cardinfoItem.getName() + " - " + cardinfoItem.getRarity());
@@ -96,14 +98,17 @@ public class CardsInfoFragment extends Fragment {
                         JSONArray jsonArray = new JSONArray();
                         JSONObject pokemon = new JSONObject();
                         JSONObject prices = new JSONObject();
+                        JSONArray jsonArrayInter = new JSONArray();
                         try {
                             pokemon.put("id", id);
                             pokemon.put("name", name);
                             pokemon.put("extension", extension);
                             pokemon.put("extensionImage", extensionImage);
+                            pokemon.put("releasedDate", releasedDate);
                             prices.put("date",date);
                             prices.put("prix",cardMarketaverageSellPrice);
-                            pokemon.put("prices",prices);
+                            jsonArrayInter.put(prices);
+                            pokemon.put("prices",jsonArrayInter);
 
                         } catch (JSONException e) {
                             e.printStackTrace();

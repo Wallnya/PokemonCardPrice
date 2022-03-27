@@ -63,13 +63,13 @@ public class DashboardFragment extends Fragment {
             for(int i=0;i<array.length();i++){
                 if(array.getJSONObject(i).getString("id").equals(dashboardViewModel.getID())) {
                     JSONObject userDetail = array.getJSONObject(i);
-                    dp = new DataPoint[userDetail.getJSONObject("prices").length()];
-                    for (int j = 0; j < userDetail.getJSONObject("prices").length(); j++) {
-                        date = new SimpleDateFormat("yyyy/MM/dd").parse(array.getJSONObject(i).getJSONObject("prices").getString("date"));
+                    dp = new DataPoint[userDetail.getJSONArray("prices").length()];
+                    for (int j = 0; j < userDetail.getJSONArray("prices").length(); j++) {
+                        date = new SimpleDateFormat("yyyy/MM/dd").parse(array.getJSONObject(i).getJSONArray("prices").getJSONObject(j).getString("date"));
                         dp[j] = new DataPoint(date,
-                                Double.parseDouble(userDetail.getJSONObject("prices").getString("prix")));
+                                Double.parseDouble(userDetail.getJSONArray("prices").getJSONObject(j).getString("prix")));
                     }
-                    binding.textDashboard.setText("Carte moyenne du dernier jour : "+userDetail.getJSONObject("prices").getString("prix")+"€");
+                    binding.textDashboard.setText("Carte moyenne du dernier jour : "+userDetail.getJSONArray("prices").getJSONObject(userDetail.getJSONArray("prices").length()-1).getString("prix")+"€");
                 }
             }
 

@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ui.card_info.CardsInfoFragment"
+    android:background="@color/white"
     >
 
     <TextView
@@ -42,6 +43,7 @@
             android:layout_weight="1" />
 
         <Button
+            android:background="@drawable/redbutton"
             android:id="@+id/button2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

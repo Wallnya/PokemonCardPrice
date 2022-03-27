@@ -4,9 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ui.favoris.FavorisFragment"
+    android:background="@color/white"
     >
     <Button
         android:id="@+id/button"
+        android:background="@drawable/redbutton"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
