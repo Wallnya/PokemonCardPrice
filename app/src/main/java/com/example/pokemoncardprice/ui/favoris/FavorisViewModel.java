@@ -1,5 +1,6 @@
 package com.example.pokemoncardprice.ui.favoris;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
 
@@ -29,18 +30,24 @@ public class FavorisViewModel extends AndroidViewModel {
     private MutableLiveData<List<CardItem>> mCards;
     private MutableLiveData<CardItem> cardItems;
 
-    public FavorisViewModel(@NonNull Application application) {
+    public FavorisViewModel(Application application) {
         super(application);
         mCards = new MutableLiveData<>();
         mCards = retrieveData(mCards,"");
     }
 
     public MutableLiveData<CardItem> updateCard(String playerTag) {
-        CardInfoAPI.getCardInfo(playerTag, getApplication().getApplicationContext(), response -> {
+        System.out.println("test1");
+        System.out.println("test1.5"+this.getApplication().getApplicationContext().toString());
+        CardInfoAPI.getCardInfo(playerTag,this.getApplication().getApplicationContext(), response -> {
+            System.out.println("test2");
             cardItems = retrieveDataOneCard(response);
+            System.out.println("test2.5");
         }, error -> {
             cardItems.setValue(null);
         });
+        System.out.println("test3");
+        //System.out.println("test4"+cardItems.getValue().getId());
         return cardItems;
     }
 
@@ -72,6 +79,7 @@ public class FavorisViewModel extends AndroidViewModel {
 
     public MutableLiveData<CardItem> retrieveDataOneCard(JSONObject response){
         try {
+            System.out.println("test5");
             JSONObject cardInfo = response.getJSONObject("data");
             String id = cardInfo.getString("id");
             String cardMarketaverageSellPrice = " / ";
@@ -82,12 +90,15 @@ public class FavorisViewModel extends AndroidViewModel {
                     date = cardInfo.getJSONObject("cardmarket").getString("updatedAt");
                 }
             }
+            System.out.println("test6");
             CardItem cardItem = new CardItem(id,cardMarketaverageSellPrice,date);
             cardItems.setValue(cardItem);
+            System.out.println("test7");
         } catch (JSONException e) {
             e.printStackTrace();
             cardItems.setValue(null);
         }
+        System.out.println("test8"+cardItems.getValue().getId());
         return cardItems;
     }
 
