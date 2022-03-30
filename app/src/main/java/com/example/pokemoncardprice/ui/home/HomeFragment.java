@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.pokemoncardprice.databinding.FragmentDashboardBinding;
 import com.example.pokemoncardprice.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {

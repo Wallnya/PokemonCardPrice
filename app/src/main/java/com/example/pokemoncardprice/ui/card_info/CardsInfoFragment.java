@@ -187,10 +187,12 @@ public class CardsInfoFragment extends Fragment {
         return file.exists();
     }
 
-    public String verification(String valeur){
-        String str ="null";
-        if(!valeur.equals(" / ")){
-            str = ""+df.format(Float.valueOf(valeur)/1.1f)+"€";
+    public String verification(String valeur) {
+        String str = "null";
+        if (valeur != null){
+            if (!valeur.equals(" / ")) {
+                str = "" + df.format(Float.valueOf(valeur) / 1.1f) + "€";
+            }
         }
         return str;
     }

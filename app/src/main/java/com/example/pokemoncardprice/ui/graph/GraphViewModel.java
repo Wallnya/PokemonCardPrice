@@ -1,4 +1,4 @@
-package com.example.pokemoncardprice.ui.dashboard;
+package com.example.pokemoncardprice.ui.graph;
 
 import android.app.Application;
 import android.content.Context;
@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.example.pokemoncardprice.models.CardItem;
 
@@ -20,22 +19,20 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
 
-public class DashboardViewModel extends AndroidViewModel {
+public class GraphViewModel extends AndroidViewModel {
     private MutableLiveData<CardItem> cardItems;
     public static String playerTag;
 
     private final MutableLiveData<String> mText;
 
-    public DashboardViewModel(@NonNull Application application) {
+    public GraphViewModel(@NonNull Application application) {
         super(application);
         mText = new MutableLiveData<>();
     }
 
     public LiveData<CardItem> getCardInfo(String playerTag) {
-        DashboardViewModel.playerTag = playerTag;
+        GraphViewModel.playerTag = playerTag;
         cardItems = new MutableLiveData<>();
         cardItems = retrieveData(cardItems, playerTag);
         return cardItems;
@@ -68,7 +65,7 @@ public class DashboardViewModel extends AndroidViewModel {
     }
 
     public String getID(){
-        return DashboardViewModel.playerTag;
+        return GraphViewModel.playerTag;
     }
 
 

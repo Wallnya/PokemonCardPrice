@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Gludi/AndroidStudioProjects/PokemonMartin/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2085" />
+        <entry key="..\:/Users/Gludi/AndroidStudioProjects/PokemonMartin/app/src/main/res/drawable/bluebutton.xml" value="0.172" />
         <entry key="..\:/Users/Gludi/AndroidStudioProjects/PokemonMartin/app/src/main/res/drawable/border.xml" value="0.1595" />
         <entry key="..\:/Users/Gludi/AndroidStudioProjects/PokemonMartin/app/src/main/res/drawable/buttonRed.xml" value="0.2285" />
         <entry key="..\:/Users/Gludi/AndroidStudioProjects/PokemonMartin/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.2085" />
@@ -11,6 +12,7 @@
         <entry key="..\:/Users/Gludi/AndroidStudioProjects/PokemonMartin/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.2085" />
         <entry key="..\:/Users/Gludi/AndroidStudioProjects/PokemonMartin/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2085" />
         <entry key="..\:/Users/Gludi/AndroidStudioProjects/PokemonMartin/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.2085" />
+        <entry key="..\:/Users/Gludi/AndroidStudioProjects/PokemonMartin/app/src/main/res/drawable/redbutton.xml" value="0.172" />
         <entry key="..\:/Users/Gludi/AndroidStudioProjects/PokemonMartin/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/Gludi/AndroidStudioProjects/PokemonMartin/app/src/main/res/layout/brawler_item.xml" value="0.1" />
         <entry key="..\:/Users/Gludi/AndroidStudioProjects/PokemonMartin/app/src/main/res/layout/fragment_brawlers.xml" value="0.1" />

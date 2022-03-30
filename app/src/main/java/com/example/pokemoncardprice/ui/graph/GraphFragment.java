@@ -1,4 +1,4 @@
-package com.example.pokemoncardprice.ui.dashboard;
+package com.example.pokemoncardprice.ui.graph;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -15,8 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.example.pokemoncardprice.R;
-import com.example.pokemoncardprice.databinding.FragmentDashboardBinding;
-import com.example.pokemoncardprice.ui.card.CardsViewModel;
+import com.example.pokemoncardprice.databinding.FragmentGraphBinding;
 import com.example.pokemoncardprice.ui.card_info.CardsInfoViewModel;
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.series.DataPoint;
@@ -36,23 +35,23 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class DashboardFragment extends Fragment {
+public class GraphFragment extends Fragment {
 
-    private FragmentDashboardBinding binding;
+    private FragmentGraphBinding binding;
     private CardsInfoViewModel cardsInfoViewModel;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        DashboardViewModel dashboardViewModel =
-                new ViewModelProvider(this).get(DashboardViewModel.class);
+        GraphViewModel graphViewModel =
+                new ViewModelProvider(this).get(GraphViewModel.class);
         cardsInfoViewModel =
                 new ViewModelProvider(requireActivity()).get(CardsInfoViewModel.class);
-        binding = FragmentDashboardBinding.inflate(inflater, container, false);
+        binding = FragmentGraphBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textDashboard;
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        graphViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         String jsonString = read(getContext(), "data.json");
         JSONObject obj;
         Date date;
@@ -61,10 +60,11 @@ public class DashboardFragment extends Fragment {
             JSONArray array=obj.getJSONArray("data");
             DataPoint[] dp = null;
             for(int i=0;i<array.length();i++){
-                if(array.getJSONObject(i).getString("id").equals(dashboardViewModel.getID())) {
+                if(array.getJSONObject(i).getString("id").equals(graphViewModel.getID())) {
                     JSONObject userDetail = array.getJSONObject(i);
                     dp = new DataPoint[userDetail.getJSONArray("prices").length()];
                     for (int j = 0; j < userDetail.getJSONArray("prices").length(); j++) {
+                        //System.out.println("Format date:"+array.getJSONObject(i).getJSONArray("prices").getJSONObject(j).getString("date"));
                         date = new SimpleDateFormat("yyyy/MM/dd").parse(array.getJSONObject(i).getJSONArray("prices").getJSONObject(j).getString("date"));
                         dp[j] = new DataPoint(date,
                                 Double.parseDouble(userDetail.getJSONArray("prices").getJSONObject(j).getString("prix")));
@@ -83,6 +83,13 @@ public class DashboardFragment extends Fragment {
             binding.idGraphView.getViewport().setMinY(0.0);
             binding.idGraphView.getViewport().setScrollable(true);
             binding.idGraphView.getViewport().setScrollableY(true);
+
+            //Couleur de la grille
+            binding.idGraphView.getGridLabelRenderer().setGridColor(Color.BLACK);
+            binding.idGraphView.getGridLabelRenderer().setHorizontalLabelsColor(Color.BLACK);
+            binding.idGraphView.getGridLabelRenderer().setVerticalLabelsColor(Color.BLACK);
+
+            //Couleur des points
             series.setColor(Color.RED);
             series.setDrawDataPoints(true);
             series.setDataPointsRadius(6);
@@ -91,7 +98,7 @@ public class DashboardFragment extends Fragment {
         }
 
         binding.button.setOnClickListener(v -> {
-            String playerTag = dashboardViewModel.getID();
+            String playerTag = graphViewModel.getID();
             cardsInfoViewModel.getCardInfo(playerTag).observe(getViewLifecycleOwner(), cardItem -> {
                 if (!cardItem.equals(null)) {
                         Navigation.findNavController(root).navigate(R.id.action_navigation_dashboard_to_navigation_notifications);

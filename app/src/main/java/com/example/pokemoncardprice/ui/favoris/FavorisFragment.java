@@ -21,8 +21,7 @@ import com.example.pokemoncardprice.databinding.FragmentFavorisBinding;
 import com.example.pokemoncardprice.models.CardItem;
 import com.example.pokemoncardprice.models.VerticalSpacingDecoration;
 import com.example.pokemoncardprice.ui.card_info.CardsInfoViewModel;
-import com.example.pokemoncardprice.ui.card_search.CardSearchFragment;
-import com.example.pokemoncardprice.ui.dashboard.DashboardViewModel;
+import com.example.pokemoncardprice.ui.graph.GraphViewModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,12 +29,11 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.util.ArrayList;
 
 public class FavorisFragment extends Fragment {
 
     private FavorisViewModel favorisViewModel;
-    private DashboardViewModel dashboardViewModel;
+    private GraphViewModel graphViewModel;
     private CardsInfoViewModel cardsInfoViewModel;
 
     private FragmentFavorisBinding binding;
@@ -47,8 +45,8 @@ public class FavorisFragment extends Fragment {
         favorisViewModel =
                 new ViewModelProvider(requireActivity()).get(FavorisViewModel.class);
 
-        dashboardViewModel =
-                new ViewModelProvider(requireActivity()).get(DashboardViewModel.class);
+        graphViewModel =
+                new ViewModelProvider(requireActivity()).get(GraphViewModel.class);
 
         cardsInfoViewModel =
                 new ViewModelProvider(requireActivity()).get(CardsInfoViewModel.class);
@@ -66,7 +64,7 @@ public class FavorisFragment extends Fragment {
             adapter.setClickListener((view, position) -> {
                 CardItem selectedCardItem = cardListItems.get(position);
 
-                dashboardViewModel.getCardInfo(selectedCardItem.getId()).observe(getViewLifecycleOwner(), cardItem -> {
+                graphViewModel.getCardInfo(selectedCardItem.getId()).observe(getViewLifecycleOwner(), cardItem -> {
                     if (cardItem != null) {
                         Navigation.findNavController(root).navigate(R.id.action_favorisFragment2_to_navigation_dashboard);
                     } else {
@@ -77,42 +75,59 @@ public class FavorisFragment extends Fragment {
             recyclerView.setAdapter(adapter);
         });
 
-        binding.button.setOnClickListener(v -> {
-            String jsonString = favorisViewModel.read(getActivity(), "data.json");
-            JSONObject obj;
-            ArrayList<String> arrayID = new ArrayList<String>();
-            try {
-                obj = new JSONObject(jsonString);
-                JSONArray array=obj.getJSONArray("data");
-                for(int i=0;i<array.length();i++){
-                    int finalI = i;
+        String jsonString = favorisViewModel.read(getActivity(), "data.json");
+        if(jsonString!=null) {
+            binding.button.setOnClickListener(v -> {
+                JSONObject obj;
+                try {
+                    obj = new JSONObject(jsonString);
+                    JSONArray array = obj.getJSONArray("data");
+                    for (int i = 0; i < array.length(); i++) {
+                        int finalI = i;
 
-                    cardsInfoViewModel.updateCard(array.getJSONObject(i).getString("id")).observe(getViewLifecycleOwner(), cardItems -> {
-                        JSONObject pokemon = new JSONObject();
-                        JSONObject prices = new JSONObject();
-                        System.out.println("Normalement, je devrais passer ici avec cet id :"+cardItems.getId());
-                        System.out.println("avec cette date :"+cardItems.getDate());
-                        System.out.println("et cette valeur :"+cardItems.getcardMarketaverageSellPrice());
-
-                        //System.out.println("test+"+cardItems.getId()+"|date+"+cardItems.getDate()+"|prices"+cardItems.getcardMarketaverageSellPrice());
-                        try {
-                            prices.put("date",cardItems.getDate());
-                            prices.put("prix",cardItems.getcardMarketaverageSellPrice());
-                            //pokemon.put("",prices);
-                            //array.getJSONObject(finalI).getJSONObject("prices").put(prices);
-                            writeToFile(obj.toString());
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        //arrayID.add(array.getJSONObject(i).getString("id"));
-                    });
+                        cardsInfoViewModel.updateCard(array.getJSONObject(i).getString("id")).observe(getViewLifecycleOwner(), cardItems -> {
+                            JSONObject prices = new JSONObject();
+                           /* System.out.println("Normalement, je devrais passer ici avec cet id :" + cardItems.getId());
+                            System.out.println("avec cette date :" + cardItems.getDate());
+                            System.out.println("et cette valeur :" + cardItems.getcardMarketaverageSellPrice());*/
+                            int longeur = 0;
+                            try {
+                                longeur = array.getJSONObject(finalI).getJSONArray("prices").length();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                boolean found = false;
+                                for (int j = 0; j < array.getJSONObject(finalI).getJSONArray("prices").length(); j++) {
+                                    if (cardItems.getDate().equals(array.getJSONObject(finalI).getJSONArray("prices").getJSONObject(j).getString("date"))) {
+                                        found = true;
+                                    }
+                                }
+                                if (!found) {
+                                    prices.put("date", cardItems.getDate());
+                                    prices.put("prix", cardItems.getcardMarketaverageSellPrice());
+                                /*String date = "2022/04/28";
+                                prices.put("date",date);
+                                prices.put("prix",32);*/
+                                    //System.out.println("test : "+array.getJSONObject(finalI).getJSONArray("prices").getJSONObject(finalI).getString("prix"));
+                                    array.getJSONObject(finalI).getJSONArray("prices").put(longeur, prices);
+                                    writeToFile(obj.toString());
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        });
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                System.out.println("Liste ID:"+arrayID);
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        });
+                Toast.makeText(getContext(), "Actualisation finie", Toast.LENGTH_LONG).show();
+            });
+        }
+        else{
+            binding.button.setBackgroundColor(R.drawable.disabledbutton);
+            binding.button.setClickable(false);
+        }
         return root;
     }
 

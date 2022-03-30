@@ -123,23 +123,16 @@ public class CardsInfoViewModel extends AndroidViewModel {
     }
 
     public MutableLiveData<CardItem> updateCard(String playerTag) {
-        System.out.println("test1.7:"+playerTag);
         CardInfoAPI.getCardInfo(playerTag,getApplication().getApplicationContext(), response -> {
-            System.out.println("test2");
             cardItems = retrieveDataOneCard(response);
-            System.out.println("test2.5");
         }, error -> {
             cardItems.setValue(null);
         });
-        System.out.println("test3");
-        //System.out.println("test4"+cardItems.getValue().getId());
         return cardItems;
     }
 
     public MutableLiveData<CardItem> retrieveDataOneCard(JSONObject response){
-        System.out.println("test5.5");
         try {
-            System.out.println("test5");
             JSONObject cardInfo = response.getJSONObject("data");
             String id = cardInfo.getString("id");
             String cardMarketaverageSellPrice = " / ";
@@ -150,15 +143,12 @@ public class CardsInfoViewModel extends AndroidViewModel {
                     date = cardInfo.getJSONObject("cardmarket").getString("updatedAt");
                 }
             }
-            System.out.println("test6");
             CardItem cardItem = new CardItem(id,cardMarketaverageSellPrice,date);
             cardItems.setValue(cardItem);
-            System.out.println("test7");
         } catch (JSONException e) {
             e.printStackTrace();
             cardItems.setValue(null);
         }
-        System.out.println("test8 id : "+cardItems.getValue().getId());
         return cardItems;
     }
 }
