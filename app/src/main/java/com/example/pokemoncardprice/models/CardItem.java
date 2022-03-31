@@ -1,6 +1,5 @@
 package com.example.pokemoncardprice.models;
 
-import java.util.Date;
 import java.util.HashMap;
 
 public class CardItem {
@@ -40,25 +39,6 @@ public class CardItem {
         this.rarity = rarity;
         this.releasedDate = releasedDate;
     }
-    public CardItem(String id, String name, String extension, String extensionImage, String cardMarketaverageSellPrice, String cardMarketavg1, String cardMarketavg7,
-                    String cardMarketavg30, String tcgPlayerMarket, String tcgPlayerLow, String tcgPlayerMid, String tcgPlayerHigh, String rarity, String  cardImage,
-                    String date) {
-        this.id = id;
-        this.name = name;
-        this.extension = extension;
-        this.extensionImage = extensionImage;
-        this.cardMarketaverageSellPrice = cardMarketaverageSellPrice;
-        this.cardMarketavg1 = cardMarketavg1;
-        this.cardMarketavg7 = cardMarketavg7;
-        this.cardMarketavg30 = cardMarketavg30;
-        this.tcgPlayerMarket = tcgPlayerMarket;
-        this.tcgPlayerLow = tcgPlayerLow;
-        this.tcgPlayerMid = tcgPlayerMid;
-        this.tcgPlayerHigh = tcgPlayerHigh;
-        this.rarity = rarity;
-        this.cardImage = cardImage;
-        this.date = date;
-    }
 
     public CardItem(String id, String name, String extension, String extensionImage, String cardMarketaverageSellPrice, String date, String releasedDate) {
         this.id = id;
@@ -68,11 +48,6 @@ public class CardItem {
         this.cardMarketaverageSellPrice = cardMarketaverageSellPrice;
         this.date = date;
         this.releasedDate = releasedDate;
-    }
-
-    public CardItem(String id, HashMap prices) {
-        this.id = id;
-        this.prices = prices;
     }
 
     public CardItem(String id, String cardMarketaverageSellPrice, String date) {

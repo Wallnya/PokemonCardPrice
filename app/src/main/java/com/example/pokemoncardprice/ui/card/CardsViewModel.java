@@ -125,14 +125,5 @@ public class CardsViewModel extends AndroidViewModel {
         }
         return mCards;
     }
-    private Date stringToDate(String aDate,String aFormat) {
-
-        if(aDate==null) return null;
-        ParsePosition pos = new ParsePosition(0);
-        SimpleDateFormat simpledateformat = new SimpleDateFormat(aFormat);
-        Date stringDate = simpledateformat.parse(aDate, pos);
-        return stringDate;
-
-    }
 
 }

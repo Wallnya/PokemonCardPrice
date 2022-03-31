@@ -1,5 +1,6 @@
 package com.example.pokemoncardprice.ui.card_info;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -41,6 +42,7 @@ public class CardsInfoFragment extends Fragment {
     private String date;
     private String releasedDate;
 
+    @SuppressLint("NewApi")
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         cardsInfoViewModel =
@@ -73,10 +75,15 @@ public class CardsInfoFragment extends Fragment {
                 binding.Stats.setText("Stats (" + cardinfoItem.getDate() + ")");
             }
         });
+
+        //Changement du nom du bouton en fonction de si l'id est déjà présent dans le fichier ou non
+        checkingButton();
+
+        //Action du bouton
         binding.button2.setOnClickListener(v -> {
-            boolean isFilePresent = isFilePresent(getActivity(), "data.json");
+            boolean isFilePresent2 = isFilePresent(getActivity(), "data.json");
             //On vérifie que le fichier existe bien
-            if(isFilePresent) {
+            if(isFilePresent2) {
                 //On récupère le string du json
                 String jsonString = read(getActivity(), "data.json");
                 JSONObject obj = null;
@@ -95,7 +102,6 @@ public class CardsInfoFragment extends Fragment {
                 if(!alreadyfound){
                     try {
                         //On crée la carte avec les infos intéressantes
-                        JSONArray jsonArray = new JSONArray();
                         JSONObject pokemon = new JSONObject();
                         JSONObject prices = new JSONObject();
                         JSONArray jsonArrayInter = new JSONArray();
@@ -113,7 +119,6 @@ public class CardsInfoFragment extends Fragment {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        jsonArray.put(pokemon);
                         obj = new JSONObject(jsonString);
                         JSONArray array=obj.getJSONArray("data");
                         array.put(array.length(),pokemon);
@@ -121,20 +126,62 @@ public class CardsInfoFragment extends Fragment {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    Toast.makeText(getContext(), name+" a été ajouté aux favoris", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), name+" a été ajouté à la collection", Toast.LENGTH_LONG).show();
+                    checkingButton();
                 }
+                //Sinon on le retire des favoris
                 else{
-                    Toast.makeText(getContext(), "Déjà dans les favoris", Toast.LENGTH_LONG).show();
+                    try {
+                        int position =0;
+                        obj = new JSONObject(jsonString);
+                        JSONArray array=obj.getJSONArray("data");
+                        for(int i=0;i<array.length();i++){
+                            if (array.getJSONObject(i).getString("id").equals(CardsInfoViewModel.playerTag)) {
+                                position = i;
+                            }
+                        }
+                        array.remove(position);
+                        writeToFile(obj.toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    Toast.makeText(getContext(), "Pokemon retiré de la collection", Toast.LENGTH_LONG).show();
+                    checkingButton();
                 }
             }
             //création du fichier si ça n'existe pas
             else {
                 boolean isFileCreated = create(getActivity(), "data.json", "{ \"data\": []}");
                 Toast.makeText(getContext(), "Le fichier est créé, veuillez recliquer pour l'ajouter aux favoris", Toast.LENGTH_LONG).show();
-
             }
         });
         return root;
+    }
+
+    private void checkingButton(){
+        boolean isFilePresent = isFilePresent(getActivity(), "data.json");
+        if(isFilePresent) {
+            //On récupère le string du json
+            String jsonString = read(getActivity(), "data.json");
+            JSONObject obj = null;
+            Boolean alreadyfound = false;
+            try {
+                obj = new JSONObject(jsonString);
+                JSONArray array=obj.getJSONArray("data");
+                for(int i=0;i<array.length();i++){
+                    if (array.getJSONObject(i).getString("id").equals(CardsInfoViewModel.playerTag))
+                        alreadyfound = true;
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            if(alreadyfound){
+                binding.button2.setText("Retirer de la collection");
+            }
+            else{
+                binding.button2.setText("Ajouter à la collection");
+            }
+        }
     }
 
     private void writeToFile(String data) {
@@ -164,7 +211,6 @@ public class CardsInfoFragment extends Fragment {
             return null;
         }
     }
-
     private boolean create(Context context, String fileName, String jsonString){
         try {
             FileOutputStream fos = context.openFileOutput(fileName,Context.MODE_PRIVATE);
@@ -179,7 +225,6 @@ public class CardsInfoFragment extends Fragment {
             return false;
         }
     }
-
     public boolean isFilePresent(Context context, String fileName) {
         String path = context.getFilesDir().getAbsolutePath() + "/" + fileName;
         System.out.println("path:"+path);

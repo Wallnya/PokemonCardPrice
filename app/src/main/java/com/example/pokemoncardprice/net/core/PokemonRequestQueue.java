@@ -9,7 +9,7 @@ public class PokemonRequestQueue {
     private static PokemonRequestQueue instance;
     private RequestQueue requestQueue;
     private static Context ctx;
-    public static final String API_TOKEN = "39c7066c-5a49-4e8f-83e5-eef5b11535af";
+    public static final String API_TOKEN = "39c7066c-5a49-4e8f-83e5-eef5b11535af"; //ancienne valeur
 
     private PokemonRequestQueue(Context context) {
         ctx = context;

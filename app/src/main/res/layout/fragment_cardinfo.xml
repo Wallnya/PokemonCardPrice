@@ -47,7 +47,7 @@
             android:id="@+id/button2"
             android:layout_width="220dp"
             android:layout_height="wrap_content"
-            android:text="Ajouter aux favoris" />
+            android:text="Ajouter à la collection" />
 
         <TextView
             android:id="@+id/textView3"

@@ -56,11 +56,6 @@ public class CardsListItemAdapter extends RecyclerView.Adapter<CardsListItemAdap
         mDataSet = dataSet;
     }
 
-    public CardsListItemAdapter(List<CardItem> mDataSet, CardsListItemAdapter.ItemClickListener mClickListener) {
-        this.mDataSet = mDataSet;
-        this.mClickListener = mClickListener;
-    }
-
     @NonNull
     @Override
     public CardsListItemAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
@@ -73,12 +68,10 @@ public class CardsListItemAdapter extends RecyclerView.Adapter<CardsListItemAdap
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         CardItem CardItem = mDataSet.get(position);
-
         viewHolder.getReleasedDateView().setText(CardItem.getReleasedDate());
         viewHolder.getNameView().setText(CardItem.getName());
         viewHolder.getExtensionView().setText(CardItem.getExtension());
         Picasso.get().load(CardItem.getExtensionImage()).into(viewHolder.getExtensionImageView());
-
     }
 
     @Override

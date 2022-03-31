@@ -87,9 +87,6 @@ public class FavorisFragment extends Fragment {
 
                         cardsInfoViewModel.updateCard(array.getJSONObject(i).getString("id")).observe(getViewLifecycleOwner(), cardItems -> {
                             JSONObject prices = new JSONObject();
-                           /* System.out.println("Normalement, je devrais passer ici avec cet id :" + cardItems.getId());
-                            System.out.println("avec cette date :" + cardItems.getDate());
-                            System.out.println("et cette valeur :" + cardItems.getcardMarketaverageSellPrice());*/
                             int longeur = 0;
                             try {
                                 longeur = array.getJSONObject(finalI).getJSONArray("prices").length();
@@ -106,10 +103,6 @@ public class FavorisFragment extends Fragment {
                                 if (!found) {
                                     prices.put("date", cardItems.getDate());
                                     prices.put("prix", cardItems.getcardMarketaverageSellPrice());
-                                /*String date = "2022/04/28";
-                                prices.put("date",date);
-                                prices.put("prix",32);*/
-                                    //System.out.println("test : "+array.getJSONObject(finalI).getJSONArray("prices").getJSONObject(finalI).getString("prix"));
                                     array.getJSONObject(finalI).getJSONArray("prices").put(longeur, prices);
                                     writeToFile(obj.toString());
                                 }

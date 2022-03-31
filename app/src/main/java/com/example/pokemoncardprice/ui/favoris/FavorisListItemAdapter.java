@@ -19,14 +19,14 @@ public class FavorisListItemAdapter extends RecyclerView.Adapter<FavorisListItem
     private List<CardItem> mDataSet;
     private FavorisListItemAdapter.ItemClickListener mClickListener;
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private final TextView idView;
+        private final TextView releasedDateView;
         private final TextView nameView;
         private final TextView extensionView;
         private final ImageView extensionImageView;
 
         public ViewHolder(View v) {
             super(v);
-            idView = (TextView) v.findViewById(R.id.textView6);
+            releasedDateView = (TextView) v.findViewById(R.id.textView6);
             nameView = (TextView) v.findViewById(R.id.textView4);
             extensionView = (TextView) v.findViewById(R.id.textView5);
             extensionImageView = (ImageView) v.findViewById(R.id.imageView);
@@ -38,8 +38,8 @@ public class FavorisListItemAdapter extends RecyclerView.Adapter<FavorisListItem
             if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
         }
 
-        public TextView getIdView() {
-            return idView;
+        public TextView getReleasedDateView() {
+            return releasedDateView;
         }
 
         public TextView getNameView() {
@@ -55,11 +55,6 @@ public class FavorisListItemAdapter extends RecyclerView.Adapter<FavorisListItem
         mDataSet = dataSet;
     }
 
-    public FavorisListItemAdapter(List<CardItem> mDataSet, FavorisListItemAdapter.ItemClickListener mClickListener) {
-        this.mDataSet = mDataSet;
-        this.mClickListener = mClickListener;
-    }
-
     @NonNull
     @Override
     public FavorisListItemAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
@@ -72,7 +67,7 @@ public class FavorisListItemAdapter extends RecyclerView.Adapter<FavorisListItem
     @Override
     public void onBindViewHolder(FavorisListItemAdapter.ViewHolder viewHolder, final int position) {
         CardItem CardItem = mDataSet.get(position);
-        viewHolder.getIdView().setText(CardItem.getReleasedDate());
+        viewHolder.getReleasedDateView().setText(CardItem.getReleasedDate());
         viewHolder.getNameView().setText(CardItem.getName());
         viewHolder.getExtensionView().setText(CardItem.getExtension());
         Picasso.get().load(CardItem.getExtensionImage()).into(viewHolder.getExtensionImageView());

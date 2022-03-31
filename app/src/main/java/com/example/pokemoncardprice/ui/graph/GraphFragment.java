@@ -40,7 +40,6 @@ public class GraphFragment extends Fragment {
     private FragmentGraphBinding binding;
     private CardsInfoViewModel cardsInfoViewModel;
 
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         GraphViewModel graphViewModel =
@@ -64,7 +63,6 @@ public class GraphFragment extends Fragment {
                     JSONObject userDetail = array.getJSONObject(i);
                     dp = new DataPoint[userDetail.getJSONArray("prices").length()];
                     for (int j = 0; j < userDetail.getJSONArray("prices").length(); j++) {
-                        //System.out.println("Format date:"+array.getJSONObject(i).getJSONArray("prices").getJSONObject(j).getString("date"));
                         date = new SimpleDateFormat("yyyy/MM/dd").parse(array.getJSONObject(i).getJSONArray("prices").getJSONObject(j).getString("date"));
                         dp[j] = new DataPoint(date,
                                 Double.parseDouble(userDetail.getJSONArray("prices").getJSONObject(j).getString("prix")));

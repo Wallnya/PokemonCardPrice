@@ -48,8 +48,8 @@
     <fragment
         android:id="@+id/favorisFragment2"
         android:name="com.example.pokemoncardprice.ui.favoris.FavorisFragment"
-        android:label="Liste des favoris"
-        tools:layout="@layout/fragment_favoris" >
+        android:label="Collection"
+        tools:layout="@layout/fragment_favoris">
         <action
             android:id="@+id/action_favorisFragment2_to_navigation_dashboard"
             app:destination="@id/navigation_dashboard" />

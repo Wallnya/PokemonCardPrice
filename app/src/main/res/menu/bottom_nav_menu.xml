@@ -11,21 +11,6 @@
         android:icon="@drawable/ic_star"
         android:title="@string/title_favoris" />
 
-  <!--  <item
-        android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="@string/title_dashboard" />-->
-
-    <item
-        android:id="@+id/navigation_notifications"
-        android:icon="@drawable/ic_book"
-        android:title="@string/title_card_info_bottom" />
-
-    <!--<item
-        android:id="@+id/cardsFragment"
-        android:icon="@drawable/ic_list"
-        android:title="@string/title_card_fragment" />-->
-
     <item
         android:id="@+id/cardSearchFragment"
         android:icon="@drawable/ic_baseline_search_24"
