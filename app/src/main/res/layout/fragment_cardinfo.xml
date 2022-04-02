@@ -45,6 +45,7 @@
         <Button
             android:background="@drawable/redbutton"
             android:id="@+id/button2"
+            android:textColor="@color/black"
             android:layout_width="220dp"
             android:layout_height="wrap_content"
             android:text="Ajouter à la collection" />

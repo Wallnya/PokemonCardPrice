@@ -64,7 +64,7 @@ public class CardsInfoViewModel extends AndroidViewModel {
             spf = new SimpleDateFormat("dd/MM/yyyy");
             String newDateString = spf.format(newDate);
 
-            String cardMarketaverageSellPrice = " / ";
+            String cardMarketaverageSellPrice = "0";
             String cardMarketavg1 = " / ";
             String cardMarketavg7 = " / ";
             String cardMarketavg30 = " / ";
@@ -135,7 +135,7 @@ public class CardsInfoViewModel extends AndroidViewModel {
         try {
             JSONObject cardInfo = response.getJSONObject("data");
             String id = cardInfo.getString("id");
-            String cardMarketaverageSellPrice = " / ";
+            String cardMarketaverageSellPrice = "0";
             String date = " / ";
             if(cardInfo.has("cardmarket")) {
                 if (cardInfo.getJSONObject("cardmarket").has("prices")) {

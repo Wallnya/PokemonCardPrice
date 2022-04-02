@@ -1,6 +1,7 @@
 package com.example.pokemoncardprice.ui.favoris;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -101,15 +102,18 @@ public class FavorisFragment extends Fragment {
                                     }
                                 }
                                 if (!found) {
-                                    prices.put("date", cardItems.getDate());
-                                    prices.put("prix", cardItems.getcardMarketaverageSellPrice());
-                                    array.getJSONObject(finalI).getJSONArray("prices").put(longeur, prices);
-                                    writeToFile(obj.toString());
+                                    if(cardItems.getId().equals(array.getJSONObject(finalI).getString("id"))) {
+                                        prices.put("date", cardItems.getDate());
+                                        prices.put("prix", cardItems.getcardMarketaverageSellPrice());
+                                        array.getJSONObject(finalI).getJSONArray("prices").put(longeur, prices);
+                                        writeToFile(obj.toString());
+                                    }
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                         });
+                        System.out.println("je suis sortie");
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -118,7 +122,7 @@ public class FavorisFragment extends Fragment {
             });
         }
         else{
-            binding.button.setBackgroundColor(R.drawable.disabledbutton);
+            binding.button.setBackgroundColor(getResources().getColor(R.color.blue));
             binding.button.setClickable(false);
         }
         return root;

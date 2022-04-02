@@ -2,6 +2,7 @@ package com.example.pokemoncardprice.ui.card_info;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,10 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.pokemoncardprice.R;
 import com.example.pokemoncardprice.databinding.FragmentCardinfoBinding;
 import com.squareup.picasso.Picasso;
 
@@ -73,6 +76,10 @@ public class CardsInfoFragment extends Fragment {
                 binding.tcgMarketLowFill.setText(str);
                 Picasso.get().load(cardinfoItem.getCardImage()).into(binding.cardImage);
                 binding.Stats.setText("Stats (" + cardinfoItem.getDate() + ")");
+                if(cardinfoItem.getcardMarketaverageSellPrice().equals("0")){
+                    binding.button2.setBackgroundColor(getResources().getColor(R.color.blue));
+                    binding.button2.setClickable(false);
+                }
             }
         });
 
