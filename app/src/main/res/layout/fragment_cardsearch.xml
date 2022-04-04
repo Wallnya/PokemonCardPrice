@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:gravity="center_vertical"
     tools:context=".ui.card_search.CardSearchFragment"
-    android:background="@color/white"
+    android:background="#F3F2F8"
     >
 
     <TextView
@@ -48,8 +48,12 @@
         android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:textColor="@color/white"
-        android:background="@drawable/redbutton"
-        android:text="@string/pokemonButtonName" />
+        android:textColor="@color/black"
+        android:background="@drawable/button_selector"
+        android:textStyle="bold"
+        android:text="@string/pokemonButtonName"
+        />
+    <!-- android:background="@drawable/redbutton"-->
+
 
 </LinearLayout>
