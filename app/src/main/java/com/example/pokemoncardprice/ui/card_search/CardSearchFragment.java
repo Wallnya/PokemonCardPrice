@@ -17,9 +17,12 @@ import com.example.pokemoncardprice.R;
 import com.example.pokemoncardprice.databinding.FragmentCardsearchBinding;
 import com.example.pokemoncardprice.ui.card.CardsViewModel;
 
+
 public class CardSearchFragment extends Fragment {
 
+
     private CardsViewModel cardsViewModel;
+    private CardSearchViewModel cardSearchViewModel;
     private FragmentCardsearchBinding binding;
 
     @Override
@@ -28,18 +31,26 @@ public class CardSearchFragment extends Fragment {
         cardsViewModel =
                 new ViewModelProvider(requireActivity()).get(CardsViewModel.class);
 
+        cardSearchViewModel =
+                new ViewModelProvider(requireActivity()).get(CardSearchViewModel.class);
+
         binding = FragmentCardsearchBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+
         binding.button.setOnClickListener(v -> {
             String playerTag = binding.playerTag.getText().toString();
-            cardsViewModel.getCard(playerTag).observe(getViewLifecycleOwner(), cardItem -> {
-                if (!cardItem.isEmpty()) {
-                    Navigation.findNavController(root).navigate(R.id.action_cardSearchFragment_to_cardsFragment);
-                }
-                else {
-                    Toast.makeText(getContext(), "Pas de carte", Toast.LENGTH_LONG).show();
-                }
+            char[] char_table = playerTag.toCharArray();
+            char_table[0]=Character.toUpperCase(char_table[0]);
+            playerTag = new String(char_table);
+            cardSearchViewModel.getCardName(playerTag, result -> {
+                cardsViewModel.getCard(result).observe(getViewLifecycleOwner(), cardItem -> {
+                    if (!cardItem.isEmpty()) {
+                        Navigation.findNavController(root).navigate(R.id.action_cardSearchFragment_to_cardsFragment);
+                    } else {
+                        Toast.makeText(getContext(), "Pas de carte", Toast.LENGTH_LONG).show();
+                    }
+                });
             });
         });
 

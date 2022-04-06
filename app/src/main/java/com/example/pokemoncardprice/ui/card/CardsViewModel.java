@@ -39,6 +39,7 @@ public class CardsViewModel extends AndroidViewModel {
 
     public LiveData<List<CardItem>> getCard(String playerTag) {
         CardsViewModel.playerTag = playerTag;
+        System.out.println("playerTag:"+playerTag);
         mCards = new MutableLiveData<>();
         List<CardItem> cardItems = new ArrayList<>();
         CardAPI.getCard(playerTag, getApplication().getApplicationContext(), response -> {
