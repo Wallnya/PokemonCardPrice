@@ -7,6 +7,7 @@
     <string name="title_card">Recherche</string>
     <string name="title_card_fragment">List card</string>
     <string name="title_favoris">Collection</string>
+    <string name="title_parameter">Paramètres</string>
     <string name="pokemonName">Entre le nom d\'un pokemon</string>
     <string name="pokemonNameInfos">Cette opération peut prendre un certain temps</string>
     <string name="pokemonButtonName">Voir la carte demandée</string>

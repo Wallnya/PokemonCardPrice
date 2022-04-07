@@ -6,6 +6,7 @@ public class CardItem {
 
     private String id;
     private String name;
+    private String frenchName;
     private String extension;
     private String extensionImage;
     private String  cardMarketaverageSellPrice;
@@ -160,5 +161,13 @@ public class CardItem {
 
     public void setReleasedDate(String releasedDate) {
         this.releasedDate = releasedDate;
+    }
+
+    public String getFrenchName() {
+        return frenchName;
+    }
+
+    public void setFrenchName(String frenchName) {
+        this.frenchName = frenchName;
     }
 }

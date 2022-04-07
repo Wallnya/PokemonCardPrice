@@ -15,6 +15,7 @@ import androidx.navigation.Navigation;
 import com.example.pokemoncardprice.R;
 
 import com.example.pokemoncardprice.databinding.FragmentCardsearchBinding;
+import com.example.pokemoncardprice.net.CardAPI;
 import com.example.pokemoncardprice.ui.card.CardsViewModel;
 
 

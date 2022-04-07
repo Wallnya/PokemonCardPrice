@@ -15,5 +15,9 @@
         android:id="@+id/favorisFragment2"
         android:icon="@drawable/ic_star"
         android:title="@string/title_favoris" />
+    <item
+        android:id="@+id/parameter"
+        android:icon="@drawable/pcp_pokebal"
+        android:title="@string/title_parameter" />
 
 </menu>

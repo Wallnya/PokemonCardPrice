@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,6 +8,13 @@
     tools:context=".ui.card_search.CardSearchFragment"
     android:background="#F3F2F8"
     >
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="253dp"
+        android:layout_height="244dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/pcp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -53,6 +61,12 @@
         android:textStyle="bold"
         android:text="@string/pokemonButtonName"
         />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="match_parent"
+        android:layout_height="140dp" />
+
     <!-- android:background="@drawable/redbutton"-->
 
 
