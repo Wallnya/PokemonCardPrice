@@ -40,10 +40,11 @@ public class CardsFragment extends Fragment {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
         recyclerView.addItemDecoration(new VerticalSpacingDecoration(VERTICAL_ITEM_SPACE));
-
         cardsListViewModel.getCard(CardsViewModel.playerTag).observe(getViewLifecycleOwner(), cardListItems -> {
             CardsListItemAdapter adapter = new CardsListItemAdapter(cardListItems);
-
+            //On cache le texte et l'animation car tout a été chargé
+            binding.uppertext.setVisibility(View.GONE);
+            binding.loadinganimation.setVisibility(View.GONE);
             adapter.setClickListener((view, position) -> {
                 CardItem selectedCardItem = cardListItems.get(position);
 

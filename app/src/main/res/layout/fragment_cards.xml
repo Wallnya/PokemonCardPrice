@@ -9,8 +9,26 @@
     android:background="#F3F2F8"
     >
 
+    <TextView
+        android:id="@+id/uppertext"
+        android:layout_width="match_parent"
+        android:layout_height="103dp" />
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/loadinganimation"
+        android:layout_width="match_parent"
+        android:layout_height="459dp"
+        android:src="@drawable/test" />
+   <!-- <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/pcp_pokebal"
+        android:layout_gravity="center_horizontal"/>-->
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rankingListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
 </LinearLayout>
