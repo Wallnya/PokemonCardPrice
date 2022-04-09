@@ -8,6 +8,15 @@
     android:background="#F3F2F8"
     >
 
+    <!--  <com.jjoe64.graphview.GraphView
+        android:id="@+id/idGraphView"
+        android:layout_width="408dp"
+        android:layout_height="407dp"
+        android:layout_alignParentTop="true"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="-5dp"
+        tools:layout_editor_absoluteY="51dp" />-->
+
     <TextView
         android:id="@+id/text_dashboard"
         android:layout_width="225dp"
@@ -22,35 +31,35 @@
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.68" />
+        app:layout_constraintVertical_bias="0.735" />
 
-    <com.jjoe64.graphview.GraphView
-        android:id="@+id/idGraphView"
-        android:layout_width="408dp"
-        android:layout_height="407dp"
-        android:layout_alignParentTop="true"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="-5dp"
-        tools:layout_editor_absoluteY="51dp" />
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/chart"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_marginBottom="28dp"
+        app:layout_constraintBottom_toTopOf="@+id/text_dashboard"
+        tools:ignore="MissingClass,MissingConstraints"
+        tools:layout_editor_absoluteX="0dp" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:background="@drawable/button_selector"
         android:text="@string/favorisbutton"
         android:textColor="@color/black"
-        android:background="@drawable/button_selector"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.792"
+        app:layout_constraintVertical_bias="0.825"
         tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,6 +2,7 @@ package com.example.pokemoncardprice.ui.graph;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.DashPathEffect;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,9 +18,14 @@ import androidx.navigation.Navigation;
 import com.example.pokemoncardprice.R;
 import com.example.pokemoncardprice.databinding.FragmentGraphBinding;
 import com.example.pokemoncardprice.ui.card_info.CardsInfoViewModel;
-import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,15 +36,16 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class GraphFragment extends Fragment {
 
     private FragmentGraphBinding binding;
     private CardsInfoViewModel cardsInfoViewModel;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -48,6 +55,9 @@ public class GraphFragment extends Fragment {
                 new ViewModelProvider(requireActivity()).get(CardsInfoViewModel.class);
         binding = FragmentGraphBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        ArrayList<Entry> values = new ArrayList<>();
+        ArrayList<String> arrayDate = new ArrayList<>();
 
         final TextView textView = binding.textDashboard;
         graphViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
@@ -66,31 +76,58 @@ public class GraphFragment extends Fragment {
                         date = new SimpleDateFormat("yyyy/MM/dd").parse(array.getJSONObject(i).getJSONArray("prices").getJSONObject(j).getString("date"));
                         dp[j] = new DataPoint(date,
                                 Double.parseDouble(userDetail.getJSONArray("prices").getJSONObject(j).getString("prix")));
+                        String value = userDetail.getJSONArray("prices").getJSONObject(j).getString("prix");
+                        values.add(new Entry(j,Float.parseFloat(value)));
+
+                        int real_month = date.getMonth()+1; //Month+1 sinon on est un mois en retard
+                        int real_year = date.getYear()-100;
+
+                        arrayDate.add(date.getDate()+"-"+ real_month+"-"+real_year);
                     }
                     binding.textDashboard.setText("Carte moyenne du dernier jour : "+userDetail.getJSONArray("prices").getJSONObject(userDetail.getJSONArray("prices").length()-1).getString("prix")+"€");
                 }
             }
 
-            LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dp);
-            binding.idGraphView.addSeries(series);
+            binding.chart.setTouchEnabled(true);
+            binding.chart.setPinchZoom(true);
 
-            DateFormat dateFormat = android.text.format.DateFormat.getMediumDateFormat(getContext());
-            binding.idGraphView.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(getActivity(), dateFormat));
-            binding.idGraphView.getGridLabelRenderer().setTextSize(32);
-            binding.idGraphView.getGridLabelRenderer().setNumHorizontalLabels(4);
-            binding.idGraphView.getViewport().setMinY(0.0);
-            binding.idGraphView.getViewport().setScrollable(true);
-            binding.idGraphView.getViewport().setScrollableY(true);
+            //Design x and y axis.
+            XAxis xAxis = binding.chart.getXAxis();
+            xAxis.setValueFormatter(new IndexAxisValueFormatter(getDate(arrayDate)));
+            YAxis rightAxis = binding.chart.getAxisRight();
+            rightAxis.setEnabled(false);
 
-            //Couleur de la grille
-            binding.idGraphView.getGridLabelRenderer().setGridColor(Color.BLACK);
-            binding.idGraphView.getGridLabelRenderer().setHorizontalLabelsColor(Color.BLACK);
-            binding.idGraphView.getGridLabelRenderer().setVerticalLabelsColor(Color.BLACK);
+            LineDataSet set1;
+            if (binding.chart.getData() != null &&
+                    binding.chart.getData().getDataSetCount() > 0) {
+                set1 = (LineDataSet) binding.chart.getData().getDataSetByIndex(0);
+                set1.setValues(values);
+                binding.chart.getData().notifyDataChanged();
+                binding.chart.notifyDataSetChanged();
+            } else {
+                set1 = new LineDataSet(values, "Prix");
+                binding.chart.getLegend().setEnabled(false); // ne pas afficher la légence
+                binding.chart.getDescription().setEnabled(false); // enlever le description label en bas à droite
 
-            //Couleur des points
-            series.setColor(Color.RED);
-            series.setDrawDataPoints(true);
-            series.setDataPointsRadius(6);
+                set1.setDrawIcons(false);
+                set1.enableDashedLine(10f, 5f, 0f);
+                set1.enableDashedHighlightLine(10f, 5f, 0f);
+                set1.setColor(Color.DKGRAY);
+                set1.setCircleColor(Color.DKGRAY);
+                set1.setLineWidth(1f);
+                set1.setCircleRadius(3f);
+                set1.setDrawCircleHole(false);
+                set1.setValueTextSize(9f);
+                set1.setDrawFilled(true);
+                set1.setFormLineWidth(1f);
+                set1.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
+                set1.setFormSize(15.f);
+                set1.setFillColor(Color.rgb(126, 185, 193));
+                ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+                dataSets.add(set1);
+                LineData data = new LineData(dataSets);
+                binding.chart.setData(data);
+            }
         } catch (JSONException | ParseException e) {
             e.printStackTrace();
         }
@@ -109,6 +146,13 @@ public class GraphFragment extends Fragment {
         return root;
     }
 
+    private ArrayList<String> getDate(ArrayList date2) {
+        ArrayList<String> label = new ArrayList<>();
+        for (int i = 0; i < date2.size(); i++)
+            label.add(date2.get(i).toString());
+        return label;
+    }
+
     private String read(Context context, String fileName) {
         try {
             FileInputStream fis = context.openFileInput(fileName);
@@ -125,11 +169,5 @@ public class GraphFragment extends Fragment {
         } catch (IOException ioException) {
             return null;
         }
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
     }
 }
