@@ -20,8 +20,6 @@ import com.example.pokemoncardprice.ui.card.CardsViewModel;
 
 
 public class CardSearchFragment extends Fragment {
-
-
     private CardsViewModel cardsViewModel;
     private CardSearchViewModel cardSearchViewModel;
     private FragmentCardsearchBinding binding;

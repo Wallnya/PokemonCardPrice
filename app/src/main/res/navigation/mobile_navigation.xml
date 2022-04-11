@@ -54,4 +54,9 @@
             android:id="@+id/action_favorisFragment2_to_navigation_dashboard"
             app:destination="@id/navigation_dashboard" />
     </fragment>
+    <fragment
+        android:id="@+id/parameter"
+        android:name="com.example.pokemoncardprice.ui.parameters.ParametersFragment"
+        android:label="Paramètres"
+        tools:layout="@layout/fragment_parameters" />
 </navigation>

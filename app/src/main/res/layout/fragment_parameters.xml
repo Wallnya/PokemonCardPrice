@@ -1,0 +1,137 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.parameters.ParametersFragment"
+    android:orientation="vertical"
+    android:gravity="center_vertical"
+    android:background="#F3F2F8"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="144dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/logold"
+                android:layout_width="107dp"
+                android:layout_height="99dp"
+                android:layout_gravity="center_horizontal"
+                app:srcCompat="@drawable/logold"
+                tools:layout_editor_absoluteX="72dp"
+                tools:layout_editor_absoluteY="114dp" />
+
+            <TextView
+                android:id="@+id/textLD"
+                android:layout_width="121dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Ludivine Ducamp" />
+
+            <TextView
+                android:id="@+id/textLD2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Développeuse android" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="206dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="107dp"
+                android:layout_height="99dp"
+                android:layout_gravity="center_horizontal"
+                app:srcCompat="@drawable/logomh"
+                tools:layout_editor_absoluteX="237dp"
+                tools:layout_editor_absoluteY="114dp" />
+
+            <TextView
+                android:id="@+id/textMH"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Martin Hauw" />
+            <TextView
+                android:id="@+id/textMH2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Graphiste" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="match_parent"
+        android:layout_height="96dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="61dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="95dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="112dp"
+            android:layout_height="65dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/discord2" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="62dp"
+            android:layout_weight="1"
+            android:text="Rejoins nous en en cliquant sur le bouton discord"
+            android:layout_gravity="center_horizontal"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="match_parent"
+        android:layout_height="70dp" />
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="352dp"
+        android:layout_height="38dp"
+        android:layout_gravity="center_horizontal"
+        android:text="Un grand MERCI à Andrew Backes de m'avoir laissé la possibilité d'utiliser son API! " />
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="match_parent"
+        android:layout_height="70dp" />
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="38dp"
+        android:text="Pokémon TCG Guru by Andrew Backes "
+        android:layout_gravity="center_horizontal"/>
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="wrap_content"
+        android:layout_height="38dp"
+        android:text="All data made available by the Pokémon TCG API"
+        android:layout_gravity="center_horizontal"/>
+</LinearLayout>

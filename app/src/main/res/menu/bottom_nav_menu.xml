@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
     <item
-        android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/title_home" />
+        android:id="@+id/favorisFragment2"
+        android:icon="@drawable/ic_star"
+        android:title="@string/title_favoris" />
 
     <item
         android:id="@+id/cardSearchFragment"
@@ -12,12 +11,7 @@
         android:title="@string/title_card" />
 
     <item
-        android:id="@+id/favorisFragment2"
-        android:icon="@drawable/ic_star"
-        android:title="@string/title_favoris" />
-    <item
         android:id="@+id/parameter"
-        android:icon="@drawable/pcp_pokebal"
+        android:icon="@drawable/ic_settings"
         android:title="@string/title_parameter" />
-
 </menu>

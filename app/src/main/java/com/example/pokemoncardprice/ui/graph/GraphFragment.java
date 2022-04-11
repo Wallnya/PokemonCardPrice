@@ -108,7 +108,6 @@ public class GraphFragment extends Fragment {
                 set1 = new LineDataSet(values, "Prix");
                 binding.chart.getLegend().setEnabled(false); // ne pas afficher la légence
                 binding.chart.getDescription().setEnabled(false); // enlever le description label en bas à droite
-
                 set1.setDrawIcons(false);
                 set1.enableDashedLine(10f, 5f, 0f);
                 set1.enableDashedHighlightLine(10f, 5f, 0f);
