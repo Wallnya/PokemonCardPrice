@@ -1,6 +1,7 @@
 package com.example.pokemoncardprice.ui.graph;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.os.Bundle;
@@ -18,12 +19,15 @@ import androidx.navigation.Navigation;
 import com.example.pokemoncardprice.R;
 import com.example.pokemoncardprice.databinding.FragmentGraphBinding;
 import com.example.pokemoncardprice.ui.card_info.CardsInfoViewModel;
+import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.jjoe64.graphview.series.DataPoint;
 
@@ -36,8 +40,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -67,15 +73,11 @@ public class GraphFragment extends Fragment {
         try {
             obj = new JSONObject(jsonString);
             JSONArray array=obj.getJSONArray("data");
-            DataPoint[] dp = null;
             for(int i=0;i<array.length();i++){
                 if(array.getJSONObject(i).getString("id").equals(graphViewModel.getID())) {
                     JSONObject userDetail = array.getJSONObject(i);
-                    dp = new DataPoint[userDetail.getJSONArray("prices").length()];
                     for (int j = 0; j < userDetail.getJSONArray("prices").length(); j++) {
                         date = new SimpleDateFormat("yyyy/MM/dd").parse(array.getJSONObject(i).getJSONArray("prices").getJSONObject(j).getString("date"));
-                        dp[j] = new DataPoint(date,
-                                Double.parseDouble(userDetail.getJSONArray("prices").getJSONObject(j).getString("prix")));
                         String value = userDetail.getJSONArray("prices").getJSONObject(j).getString("prix");
                         values.add(new Entry(j,Float.parseFloat(value)));
 
@@ -84,19 +86,36 @@ public class GraphFragment extends Fragment {
 
                         arrayDate.add(date.getDate()+"-"+ real_month+"-"+real_year);
                     }
-                    binding.textDashboard.setText("Carte moyenne du dernier jour : "+userDetail.getJSONArray("prices").getJSONObject(userDetail.getJSONArray("prices").length()-1).getString("prix")+"€");
+                    String mytime=array.getJSONObject(i).getJSONArray("prices").getJSONObject(userDetail.getJSONArray("prices").length()-1).getString("date");
+                    SimpleDateFormat dateFormat = new SimpleDateFormat(
+                            "yyyy/mm/dd");
+                    Date myDate = null;
+                    try {
+                        myDate = dateFormat.parse(mytime);
+
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                    SimpleDateFormat timeFormat = new SimpleDateFormat("dd/mm/yyyy");
+                    String finalDate = timeFormat.format(myDate);
+                    binding.textDashboard.setText("Carte moyenne du"+finalDate+" :\n"+userDetail.getJSONArray("prices").getJSONObject(userDetail.getJSONArray("prices").length()-1).getString("prix")+"€");
                 }
             }
 
             binding.chart.setTouchEnabled(true);
             binding.chart.setPinchZoom(true);
 
+            CustomMarkerView mv = new CustomMarkerView(getContext(), R.layout.custom_marker_view);
+            // set the marker to the chart
+            binding.chart.setMarkerView(mv);
+
             //Design x and y axis.
             XAxis xAxis = binding.chart.getXAxis();
             xAxis.setValueFormatter(new IndexAxisValueFormatter(getDate(arrayDate)));
+            xAxis.setLabelCount(arrayDate.size(), true);
             YAxis rightAxis = binding.chart.getAxisRight();
             rightAxis.setEnabled(false);
-
             LineDataSet set1;
             if (binding.chart.getData() != null &&
                     binding.chart.getData().getDataSetCount() > 0) {
@@ -167,6 +186,40 @@ public class GraphFragment extends Fragment {
             return null;
         } catch (IOException ioException) {
             return null;
+        }
+    }
+
+    public class CustomMarkerView extends MarkerView {
+
+
+        private TextView tvContent;
+        private int uiScreenWidth;
+
+        public CustomMarkerView (Context context, int layoutResource) {
+            super(context, layoutResource);
+            tvContent = (TextView) findViewById(R.id.tvContent);
+            uiScreenWidth = getResources().getDisplayMetrics().widthPixels;
+
+        }
+        // callbacks everytime the MarkerView is redrawn, can be used to update the
+        // content (user-interface)
+        @Override
+        public void refreshContent(Entry e, Highlight highlight) {
+            tvContent.setText(""+e.getY()); // set the entry-value as the display text
+            tvContent.setTextColor(Color.BLACK);
+        }
+        @Override
+        public void draw(Canvas canvas, float posX, float posY) {
+            // Check marker position and update offsets.
+            int w = getWidth();
+            if((uiScreenWidth-posX-w) < w) {
+                posX -= w;
+            }
+
+            // translate to the correct position and draw
+            canvas.translate(posX, posY);
+            draw(canvas);
+            canvas.translate(-posX, -posY);
         }
     }
 }

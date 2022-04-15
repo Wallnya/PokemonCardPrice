@@ -38,12 +38,12 @@
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/chart"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_width="372dp"
+        android:layout_height="399dp"
         android:layout_marginBottom="28dp"
         app:layout_constraintBottom_toTopOf="@+id/text_dashboard"
         tools:ignore="MissingClass,MissingConstraints"
-        tools:layout_editor_absoluteX="0dp" />
+        tools:layout_editor_absoluteX="19dp" />
 
     <Button
         android:id="@+id/button"
