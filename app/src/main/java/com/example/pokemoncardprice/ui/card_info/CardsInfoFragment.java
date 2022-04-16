@@ -1,39 +1,29 @@
 package com.example.pokemoncardprice.ui.card_info;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.pokemoncardprice.R;
 import com.example.pokemoncardprice.databinding.FragmentCardinfoBinding;
+import com.example.pokemoncardprice.jsonreader.JsonReader;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.text.DecimalFormat;
+
 public class CardsInfoFragment extends Fragment {
     private static final DecimalFormat df = new DecimalFormat("0.00");
+    private JsonReader jsonReader = new JsonReader();
 
     private CardsInfoViewModel cardsInfoViewModel;
     private FragmentCardinfoBinding binding;
@@ -70,9 +60,9 @@ public class CardsInfoFragment extends Fragment {
                 binding.cardMarketAvg1Fill.setText(str);
                 str = cardinfoItem.getcardMarketavg7()+"€";
                 binding.cardMarketAvg2Fill.setText(str);
-                str = verification(cardinfoItem.getTcgPlayerMarket());
+                str = priceChecking(cardinfoItem.getTcgPlayerMarket());
                 binding.tcgMarketMarketTextFill.setText(str);
-                str = verification(cardinfoItem.getTcgPlayerLow());
+                str = priceChecking(cardinfoItem.getTcgPlayerLow());
                 binding.tcgMarketLowFill.setText(str);
                 Picasso.get().load(cardinfoItem.getCardImage()).into(binding.cardImage);
                 binding.Stats.setText("Stats (" + cardinfoItem.getDate() + ")");
@@ -84,15 +74,15 @@ public class CardsInfoFragment extends Fragment {
         });
 
         //Changement du nom du bouton en fonction de si l'id est déjà présent dans le fichier ou non
-        checkingButton();
+        buttonChecking();
 
         //Action du bouton
         binding.button2.setOnClickListener(v -> {
-            boolean isFilePresent2 = isFilePresent(getActivity(), "data.json");
+            boolean isFilePresent2 = jsonReader.isFilePresent(getActivity(), "data.json");
             //On vérifie que le fichier existe bien
             if(isFilePresent2) {
                 //On récupère le string du json
-                String jsonString = read(getActivity(), "data.json");
+                String jsonString = jsonReader.read(getActivity(), "data.json");
                 JSONObject obj = null;
                 Boolean alreadyfound = false;
                 try {
@@ -129,12 +119,12 @@ public class CardsInfoFragment extends Fragment {
                         obj = new JSONObject(jsonString);
                         JSONArray array=obj.getJSONArray("data");
                         array.put(array.length(),pokemon);
-                        writeToFile(obj.toString());
+                        jsonReader.writeToFile(obj.toString(),getContext());
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                     Toast.makeText(getContext(), name+" a été ajouté à la collection", Toast.LENGTH_LONG).show();
-                    checkingButton();
+                    buttonChecking();
                 }
                 //Sinon on le retire des favoris
                 else{
@@ -148,28 +138,28 @@ public class CardsInfoFragment extends Fragment {
                             }
                         }
                         array.remove(position);
-                        writeToFile(obj.toString());
+                        jsonReader.writeToFile(obj.toString(),getContext());
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                     Toast.makeText(getContext(), "Pokemon retiré de la collection", Toast.LENGTH_LONG).show();
-                    checkingButton();
+                    buttonChecking();
                 }
             }
             //création du fichier si ça n'existe pas
             else {
-                boolean isFileCreated = create(getActivity(), "data.json", "{ \"data\": []}");
+                boolean isFileCreated = jsonReader.create(getActivity(), "data.json", "{ \"data\": []}");
                 Toast.makeText(getContext(), "Le fichier est créé, veuillez recliquer pour l'ajouter aux favoris", Toast.LENGTH_LONG).show();
             }
         });
         return root;
     }
 
-    private void checkingButton(){
-        boolean isFilePresent = isFilePresent(getActivity(), "data.json");
+    private void buttonChecking(){
+        boolean isFilePresent = jsonReader.isFilePresent(getActivity(), "data.json");
         if(isFilePresent) {
             //On récupère le string du json
-            String jsonString = read(getActivity(), "data.json");
+            String jsonString = jsonReader.read(getActivity(), "data.json");
             JSONObject obj = null;
             Boolean alreadyfound = false;
             try {
@@ -191,55 +181,7 @@ public class CardsInfoFragment extends Fragment {
         }
     }
 
-    private void writeToFile(String data) {
-        try {
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(getContext().openFileOutput("data.json", Context.MODE_PRIVATE));
-            outputStreamWriter.write(data);
-            outputStreamWriter.close();
-        }
-        catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
-    }
-    private String read(Context context, String fileName) {
-        try {
-            FileInputStream fis = context.openFileInput(fileName);
-            InputStreamReader isr = new InputStreamReader(fis);
-            BufferedReader bufferedReader = new BufferedReader(isr);
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                sb.append(line);
-            }
-            return sb.toString();
-        } catch (FileNotFoundException fileNotFound) {
-            return null;
-        } catch (IOException ioException) {
-            return null;
-        }
-    }
-    private boolean create(Context context, String fileName, String jsonString){
-        try {
-            FileOutputStream fos = context.openFileOutput(fileName,Context.MODE_PRIVATE);
-            if (jsonString != null) {
-                fos.write(jsonString.getBytes());
-            }
-            fos.close();
-            return true;
-        } catch (FileNotFoundException fileNotFound) {
-            return false;
-        } catch (IOException ioException) {
-            return false;
-        }
-    }
-    public boolean isFilePresent(Context context, String fileName) {
-        String path = context.getFilesDir().getAbsolutePath() + "/" + fileName;
-        System.out.println("path:"+path);
-        File file = new File(path);
-        return file.exists();
-    }
-
-    public String verification(String valeur) {
+    public String priceChecking(String valeur) {
         String str = "null";
         if (valeur != null){
             if (!valeur.equals(" / ")) {

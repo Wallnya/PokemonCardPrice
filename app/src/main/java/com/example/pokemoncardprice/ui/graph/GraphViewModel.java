@@ -8,6 +8,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.pokemoncardprice.jsonreader.JsonReader;
 import com.example.pokemoncardprice.models.CardItem;
 
 import org.json.JSONArray;
@@ -23,6 +24,7 @@ import java.io.InputStreamReader;
 public class GraphViewModel extends AndroidViewModel {
     private MutableLiveData<CardItem> cardItems;
     public static String playerTag;
+    private JsonReader jsonReader = new JsonReader();
 
     private final MutableLiveData<String> mText;
 
@@ -39,7 +41,7 @@ public class GraphViewModel extends AndroidViewModel {
     }
 
     private MutableLiveData<CardItem> retrieveData(MutableLiveData<CardItem> mCards, String id){
-        String jsonString = read(getApplication().getApplicationContext(), "data.json");
+        String jsonString = jsonReader.read(getApplication().getApplicationContext(), "data.json");
         JSONObject obj;
         CardItem card = null;
         try {
@@ -66,24 +68,5 @@ public class GraphViewModel extends AndroidViewModel {
 
     public String getID(){
         return GraphViewModel.playerTag;
-    }
-
-
-    private String read(Context context, String fileName) {
-        try {
-            FileInputStream fis = context.openFileInput(fileName);
-            InputStreamReader isr = new InputStreamReader(fis);
-            BufferedReader bufferedReader = new BufferedReader(isr);
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                sb.append(line);
-            }
-            return sb.toString();
-        } catch (FileNotFoundException fileNotFound) {
-            return null;
-        } catch (IOException ioException) {
-            return null;
-        }
     }
 }

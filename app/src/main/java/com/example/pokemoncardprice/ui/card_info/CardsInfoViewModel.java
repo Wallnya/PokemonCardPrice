@@ -64,6 +64,7 @@ public class CardsInfoViewModel extends AndroidViewModel {
             spf = new SimpleDateFormat("dd/MM/yyyy");
             String newDateString = spf.format(newDate);
 
+
             String cardMarketaverageSellPrice = "0";
             String cardMarketavg1 = " / ";
             String cardMarketavg7 = " / ";
@@ -76,6 +77,10 @@ public class CardsInfoViewModel extends AndroidViewModel {
                     cardMarketavg7 = cardInfo.getJSONObject("cardmarket").getJSONObject("prices").getString("avg7");
                     cardMarketavg30 = cardInfo.getJSONObject("cardmarket").getJSONObject("prices").getString("avg30");
                     date = cardInfo.getJSONObject("cardmarket").getString("updatedAt");
+                    spf = new SimpleDateFormat("yyyy/MM/dd");
+                    newDate = spf.parse(date);
+                    spf = new SimpleDateFormat("dd/MM/yyyy");
+                    date = spf.format(newDate);
                 }
             }
             String tcgPlayerMarket = " / ";
@@ -141,11 +146,16 @@ public class CardsInfoViewModel extends AndroidViewModel {
                 if (cardInfo.getJSONObject("cardmarket").has("prices")) {
                     cardMarketaverageSellPrice = cardInfo.getJSONObject("cardmarket").getJSONObject("prices").getString("trendPrice");
                     date = cardInfo.getJSONObject("cardmarket").getString("updatedAt");
+                    SimpleDateFormat spf = new SimpleDateFormat("yyyy/MM/dd");
+                    spf = new SimpleDateFormat("yyyy/MM/dd");
+                    Date newDate = spf.parse(date);
+                    spf = new SimpleDateFormat("dd/MM/yyyy");
+                    date = spf.format(newDate);
                 }
             }
             CardItem cardItem = new CardItem(id,cardMarketaverageSellPrice,date);
             cardItems.setValue(cardItem);
-        } catch (JSONException e) {
+        } catch (JSONException | ParseException e) {
             e.printStackTrace();
             cardItems.setValue(null);
         }

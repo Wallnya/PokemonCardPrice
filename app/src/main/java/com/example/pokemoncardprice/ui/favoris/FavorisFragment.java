@@ -1,7 +1,6 @@
 package com.example.pokemoncardprice.ui.favoris;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pokemoncardprice.R;
 import com.example.pokemoncardprice.databinding.FragmentFavorisBinding;
+import com.example.pokemoncardprice.jsonreader.JsonReader;
 import com.example.pokemoncardprice.models.CardItem;
 import com.example.pokemoncardprice.models.VerticalSpacingDecoration;
 import com.example.pokemoncardprice.ui.card_info.CardsInfoViewModel;
@@ -36,6 +36,7 @@ public class FavorisFragment extends Fragment {
     private FavorisViewModel favorisViewModel;
     private GraphViewModel graphViewModel;
     private CardsInfoViewModel cardsInfoViewModel;
+    private JsonReader jsonReader = new JsonReader();
 
     private FragmentFavorisBinding binding;
     private static final int VERTICAL_ITEM_SPACE = 24;
@@ -76,7 +77,7 @@ public class FavorisFragment extends Fragment {
             recyclerView.setAdapter(adapter);
         });
 
-        String jsonString = favorisViewModel.read(getActivity(), "data.json");
+        String jsonString = jsonReader.read(getActivity(), "data.json");
         if(jsonString!=null) {
             binding.button.setOnClickListener(v -> {
                 JSONObject obj;
@@ -106,14 +107,13 @@ public class FavorisFragment extends Fragment {
                                         prices.put("date", cardItems.getDate());
                                         prices.put("prix", cardItems.getcardMarketaverageSellPrice());
                                         array.getJSONObject(finalI).getJSONArray("prices").put(longeur, prices);
-                                        writeToFile(obj.toString());
+                                        jsonReader.writeToFile(obj.toString(),getContext());
                                     }
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                         });
-                        System.out.println("je suis sortie");
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -128,7 +128,7 @@ public class FavorisFragment extends Fragment {
         return root;
     }
 
-    private void writeToFile(String data) {
+  /*  private void writeToFile(String data) {
         try {
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(getContext().openFileOutput("data.json", Context.MODE_PRIVATE));
             outputStreamWriter.write(data);
@@ -137,7 +137,7 @@ public class FavorisFragment extends Fragment {
         catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
         }
-    }
+    }*/
 
     @Override
     public void onDestroyView() {

@@ -1,5 +1,7 @@
 package com.example.pokemoncardprice.ui.home;
 
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +28,9 @@ public class HomeFragment extends Fragment {
 
         final TextView textView = binding.textHome;
         dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        binding.textHome2.setText("v 1.0 ");
+        binding.textHome2.setTextColor(Color.GRAY);
+        //binding.textHome2.setTypeface(null, Typeface.BOLD);
         return root;
     }
 

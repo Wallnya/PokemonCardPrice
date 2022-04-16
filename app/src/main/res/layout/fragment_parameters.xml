@@ -9,158 +9,6 @@
     android:background="#F3F2F8"
     >
 
-   <!-- <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="144dp"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="200dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/logold2"
-                android:layout_width="match_parent"
-                android:layout_height="99dp"
-                android:layout_gravity="center_horizontal"
-                app:srcCompat="@drawable/logold"
-                tools:layout_editor_absoluteX="72dp"
-                tools:layout_editor_absoluteY="114dp" />
-
-            <ImageView
-                android:id="@+id/logold"
-                android:layout_width="107dp"
-                android:layout_height="99dp"
-                android:layout_gravity="center_horizontal"
-                app:srcCompat="@drawable/logold"
-                tools:layout_editor_absoluteX="72dp"
-                tools:layout_editor_absoluteY="114dp" />
-
-            <TextView
-                android:id="@+id/textLD"
-                android:layout_width="121dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="Ludivine Ducamp"
-                android:textColor="@color/black"
-                />
-
-            <TextView
-                android:id="@+id/textLD2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="Développeuse android"
-                android:textColor="@color/black"
-                />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="206dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="107dp"
-                android:layout_height="99dp"
-                android:layout_gravity="center_horizontal"
-                app:srcCompat="@drawable/logomh3"
-                tools:layout_editor_absoluteX="237dp"
-                tools:layout_editor_absoluteY="114dp" />
-
-            <TextView
-                android:id="@+id/textMH"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="Martin Hauw"
-                android:textColor="@color/black"
-                />
-            <TextView
-                android:id="@+id/textMH2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="Graphiste"
-                android:textColor="@color/black"
-                />
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/textView16"
-        android:layout_width="match_parent"
-        android:layout_height="96dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="61dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/textView15"
-            android:layout_width="95dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <Button
-            android:id="@+id/button4"
-            android:layout_width="112dp"
-            android:layout_height="65dp"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/discord2" />
-
-        <TextView
-            android:id="@+id/textView13"
-            android:layout_width="wrap_content"
-            android:layout_height="62dp"
-            android:layout_weight="1"
-            android:text="Rejoins nous en en cliquant sur le bouton discord"
-            android:layout_gravity="center_horizontal"
-            android:textColor="@color/black"
-            />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/textView17"
-        android:layout_width="match_parent"
-        android:layout_height="70dp" />
-
-    <TextView
-        android:id="@+id/textView20"
-        android:layout_width="352dp"
-        android:layout_height="38dp"
-        android:layout_gravity="center_horizontal"
-        android:text="Un grand MERCI à Andrew Backes de m'avoir laissé la possibilité d'utiliser son API! "
-        android:textColor="@color/black"
-        />
-    <TextView
-        android:id="@+id/textView21"
-        android:layout_width="match_parent"
-        android:layout_height="70dp" />
-    <TextView
-        android:id="@+id/textView18"
-        android:layout_width="wrap_content"
-        android:layout_height="38dp"
-        android:text="Pokémon TCG Guru by Andrew Backes "
-        android:layout_gravity="center_horizontal"
-        android:textColor="@color/black"
-        />
-
-    <TextView
-        android:id="@+id/textView19"
-        android:layout_width="wrap_content"
-        android:layout_height="38dp"
-        android:text="All data made available by the Pokémon TCG API"
-        android:layout_gravity="center_horizontal"
-        android:textColor="@color/black"
-        />
-        -->
-
     <TextView
         android:id="@+id/textView1"
         android:layout_width="match_parent"
@@ -181,7 +29,7 @@
             android:id="@+id/profile_image"
             android:layout_width="117dp"
             android:layout_height="112dp"
-            android:src="@drawable/logold"
+            android:src="@drawable/test4"
             app:civ_border_color="#FF000000"
             app:civ_border_width="2dp" />
 
@@ -217,7 +65,7 @@
             <TextView
                 android:id="@+id/textView5"
                 android:layout_width="177dp"
-                android:layout_height="32dp"
+                android:layout_height="75dp"
                 android:layout_weight="1"
                 android:text="Ludivine Ducamp"
                 tools:textStyle="bold" />
@@ -242,7 +90,7 @@
             android:id="@+id/profile_image2"
             android:layout_width="117dp"
             android:layout_height="112dp"
-            android:src="@drawable/logomh3"
+            android:src="@drawable/martin_hauw"
             app:civ_border_color="#FF000000"
             app:civ_border_width="2dp" />
 
@@ -302,7 +150,7 @@
             android:id="@+id/profile_image3"
             android:layout_width="117dp"
             android:layout_height="112dp"
-            android:src="@drawable/andrew"
+            android:src="@drawable/andrew_backes"
             app:civ_border_color="#FF000000"
             app:civ_border_width="2dp" />
 
@@ -358,13 +206,16 @@
             android:layout_height="111dp"
             android:layout_weight="1" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profile_image4"
-            android:layout_width="111dp"
-            android:layout_height="112dp"
-            android:src="@drawable/discord2"
-            app:civ_border_color="#FF000000"
-            app:civ_border_width="2dp" />
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="wrap_content"
+            android:layout_height="86dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/button_selector"
+            android:text="Rejoins nous"
+            android:textColor="@color/blue"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView18"
@@ -372,16 +223,17 @@
             android:layout_height="111dp"
             android:layout_weight="1" />
 
-        <Button
-            android:id="@+id/button4"
-            android:layout_width="209dp"
+        <ImageView
+            android:layout_width="111dp"
+            android:layout_height="97dp"
+            android:src="@drawable/logo_discord"></ImageView>
+
+        <TextView
+            android:id="@+id/textView20"
+            android:layout_width="47dp"
             android:layout_height="111dp"
-            android:background="@drawable/button_selector"
-            android:layout_gravity="center_horizontal"
-            android:text="Rejoins nous"
-            android:textColor="@color/blue"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:layout_weight="1" />
+
 
     </LinearLayout>
 

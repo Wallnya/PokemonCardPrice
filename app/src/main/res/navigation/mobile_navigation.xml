@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_graph"
         android:name="com.example.pokemoncardprice.ui.graph.GraphFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_graph" >
@@ -46,16 +46,16 @@
             app:destination="@id/navigation_notifications" />
     </fragment>
     <fragment
-        android:id="@+id/favorisFragment2"
+        android:id="@+id/navigation_listfavoris"
         android:name="com.example.pokemoncardprice.ui.favoris.FavorisFragment"
         android:label="Collection"
         tools:layout="@layout/fragment_favoris">
         <action
             android:id="@+id/action_favorisFragment2_to_navigation_dashboard"
-            app:destination="@id/navigation_dashboard" />
+            app:destination="@id/navigation_graph" />
     </fragment>
     <fragment
-        android:id="@+id/parameter"
+        android:id="@+id/navigation_parameters"
         android:name="com.example.pokemoncardprice.ui.parameters.ParametersFragment"
         android:label="Paramètres"
         tools:layout="@layout/fragment_parameters" />

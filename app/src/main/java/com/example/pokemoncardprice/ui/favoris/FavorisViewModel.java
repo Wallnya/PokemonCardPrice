@@ -6,6 +6,7 @@ import android.content.Context;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.pokemoncardprice.jsonreader.JsonReader;
 import com.example.pokemoncardprice.models.CardItem;
 
 import org.json.JSONArray;
@@ -22,6 +23,7 @@ import java.util.List;
 
 public class FavorisViewModel extends AndroidViewModel {
     private MutableLiveData<List<CardItem>> mCards;
+    private JsonReader jsonReader = new JsonReader();
 
     public FavorisViewModel(Application application) {
         super(application);
@@ -35,7 +37,7 @@ public class FavorisViewModel extends AndroidViewModel {
 
     private MutableLiveData<List<CardItem>> retrieveData(MutableLiveData<List<CardItem>> mCards, String id){
         List<CardItem> cardItems = new ArrayList<>();
-        String jsonString = read(getApplication().getApplicationContext(), "data.json");
+        String jsonString = jsonReader.read(getApplication().getApplicationContext(), "data.json");
         if(jsonString!=null){
             JSONObject obj;
             try {
@@ -54,24 +56,4 @@ public class FavorisViewModel extends AndroidViewModel {
         }
         return mCards;
     }
-
-
-    public String read(Context context, String fileName) {
-        try {
-            FileInputStream fis = context.openFileInput(fileName);
-            InputStreamReader isr = new InputStreamReader(fis);
-            BufferedReader bufferedReader = new BufferedReader(isr);
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                sb.append(line);
-            }
-            return sb.toString();
-        } catch (FileNotFoundException fileNotFound) {
-            return null;
-        } catch (IOException ioException) {
-            return null;
-        }
-    }
-
 }

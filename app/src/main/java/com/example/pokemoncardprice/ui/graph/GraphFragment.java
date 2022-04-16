@@ -18,6 +18,7 @@ import androidx.navigation.Navigation;
 
 import com.example.pokemoncardprice.R;
 import com.example.pokemoncardprice.databinding.FragmentGraphBinding;
+import com.example.pokemoncardprice.jsonreader.JsonReader;
 import com.example.pokemoncardprice.ui.card_info.CardsInfoViewModel;
 import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.components.XAxis;
@@ -29,21 +30,14 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.jjoe64.graphview.series.DataPoint;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -51,7 +45,7 @@ public class GraphFragment extends Fragment {
 
     private FragmentGraphBinding binding;
     private CardsInfoViewModel cardsInfoViewModel;
-
+    private JsonReader jsonReader = new JsonReader();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -67,7 +61,7 @@ public class GraphFragment extends Fragment {
 
         final TextView textView = binding.textDashboard;
         graphViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        String jsonString = read(getContext(), "data.json");
+        String jsonString = jsonReader.read(getContext(), "data.json");
         JSONObject obj;
         Date date;
         try {
@@ -86,20 +80,8 @@ public class GraphFragment extends Fragment {
 
                         arrayDate.add(date.getDate()+"-"+ real_month+"-"+real_year);
                     }
-                    String mytime=array.getJSONObject(i).getJSONArray("prices").getJSONObject(userDetail.getJSONArray("prices").length()-1).getString("date");
-                    SimpleDateFormat dateFormat = new SimpleDateFormat(
-                            "yyyy/mm/dd");
-                    Date myDate = null;
-                    try {
-                        myDate = dateFormat.parse(mytime);
-
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-
-                    SimpleDateFormat timeFormat = new SimpleDateFormat("dd/mm/yyyy");
-                    String finalDate = timeFormat.format(myDate);
-                    binding.textDashboard.setText("Carte moyenne du"+finalDate+" :\n"+userDetail.getJSONArray("prices").getJSONObject(userDetail.getJSONArray("prices").length()-1).getString("prix")+"€");
+                    String lastDate =array.getJSONObject(i).getJSONArray("prices").getJSONObject(userDetail.getJSONArray("prices").length()-1).getString("date");
+                    binding.textDashboard.setText("Carte moyenne du"+ lastDate +" :\n"+userDetail.getJSONArray("prices").getJSONObject(userDetail.getJSONArray("prices").length()-1).getString("prix")+"€");
                 }
             }
 
@@ -141,6 +123,7 @@ public class GraphFragment extends Fragment {
                 set1.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
                 set1.setFormSize(15.f);
                 set1.setFillColor(Color.rgb(126, 185, 193));
+                set1.setValueFormatter(new DecimalPoint());
                 ArrayList<ILineDataSet> dataSets = new ArrayList<>();
                 dataSets.add(set1);
                 LineData data = new LineData(dataSets);
@@ -171,24 +154,6 @@ public class GraphFragment extends Fragment {
         return label;
     }
 
-    private String read(Context context, String fileName) {
-        try {
-            FileInputStream fis = context.openFileInput(fileName);
-            InputStreamReader isr = new InputStreamReader(fis);
-            BufferedReader bufferedReader = new BufferedReader(isr);
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                sb.append(line);
-            }
-            return sb.toString();
-        } catch (FileNotFoundException fileNotFound) {
-            return null;
-        } catch (IOException ioException) {
-            return null;
-        }
-    }
-
     public class CustomMarkerView extends MarkerView {
 
 
@@ -215,11 +180,24 @@ public class GraphFragment extends Fragment {
             if((uiScreenWidth-posX-w) < w) {
                 posX -= w;
             }
-
+            if(posY>900){
+                posY -=w;
+            }
             // translate to the correct position and draw
             canvas.translate(posX, posY);
             draw(canvas);
             canvas.translate(-posX, -posY);
+        }
+    }
+
+    public class DecimalPoint extends ValueFormatter {
+        private DecimalFormat mFormat;
+        public DecimalPoint() {
+            mFormat = new DecimalFormat("#.##");
+        }
+        @Override
+        public String getFormattedValue(float value) {
+            return mFormat.format(value);
         }
     }
 }
