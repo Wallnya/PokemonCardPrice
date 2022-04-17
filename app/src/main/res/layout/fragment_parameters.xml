@@ -29,7 +29,7 @@
             android:id="@+id/profile_image"
             android:layout_width="117dp"
             android:layout_height="112dp"
-            android:src="@drawable/test4"
+            android:src="@drawable/ludivine_ducamp"
             app:civ_border_color="#FF000000"
             app:civ_border_width="2dp" />
 
@@ -76,7 +76,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="85dp"
+        android:layout_height="46dp"
         android:layout_weight="1"
         android:orientation="horizontal">
 
@@ -133,6 +133,22 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="365dp"
+        android:layout_height="0.1dp"
+        android:layout_weight="0.1"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/border_linerlayout"
+        tools:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView23"
+        android:layout_width="366dp"
+        android:layout_height="0.1dp"
+        android:layout_weight="0.3"
+        tools:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"

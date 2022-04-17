@@ -7,13 +7,13 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.pokemoncardprice.ui.home.HomeFragment"
+        android:name="com.pcp.pokemoncardprice.ui.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_graph"
-        android:name="com.example.pokemoncardprice.ui.graph.GraphFragment"
+        android:name="com.pcp.pokemoncardprice.ui.graph.GraphFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_graph" >
         <action
@@ -23,12 +23,12 @@
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.example.pokemoncardprice.ui.card_info.CardsInfoFragment"
+        android:name="com.pcp.pokemoncardprice.ui.card_info.CardsInfoFragment"
         android:label="@string/title_card_info"
         tools:layout="@layout/fragment_cardinfo" />
     <fragment
         android:id="@+id/cardSearchFragment"
-        android:name="com.example.pokemoncardprice.ui.card_search.CardSearchFragment"
+        android:name="com.pcp.pokemoncardprice.ui.card_search.CardSearchFragment"
         android:label="Recherche une carte"
         tools:layout="@layout/fragment_cardsearch" >
         <action
@@ -37,7 +37,7 @@
     </fragment>
     <fragment
         android:id="@+id/cardsFragment"
-        android:name="com.example.pokemoncardprice.ui.card.CardsFragment"
+        android:name="com.pcp.pokemoncardprice.ui.card.CardsFragment"
         android:label="Liste de cartes"
         tools:layout="@layout/fragment_cards"
         >
@@ -47,7 +47,7 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_listfavoris"
-        android:name="com.example.pokemoncardprice.ui.favoris.FavorisFragment"
+        android:name="com.pcp.pokemoncardprice.ui.favoris.FavorisFragment"
         android:label="Collection"
         tools:layout="@layout/fragment_favoris">
         <action
@@ -56,7 +56,7 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_parameters"
-        android:name="com.example.pokemoncardprice.ui.parameters.ParametersFragment"
+        android:name="com.pcp.pokemoncardprice.ui.parameters.ParametersFragment"
         android:label="Paramètres"
         tools:layout="@layout/fragment_parameters" />
 </navigation>
