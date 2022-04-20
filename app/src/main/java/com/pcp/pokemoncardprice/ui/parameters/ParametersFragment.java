@@ -30,6 +30,42 @@ public class ParametersFragment extends Fragment {
             startActivity(intent);
 
         });
+        binding.button3.setOnClickListener(v -> {
+            Uri uri = Uri.parse("https://fr.linkedin.com/in/ludivine-ducamp-9bbb00179");
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
+
+        });
+        binding.button5.setOnClickListener(v -> {
+            Uri uri = Uri.parse("https://github.com/Wallnya");
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
+
+        });
+        binding.button6.setOnClickListener(v -> {
+            Uri uri = Uri.parse("https://www.linkedin.com/in/martin-hauw/");
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
+
+        });
+        binding.button7.setOnClickListener(v -> {
+            Uri uri = Uri.parse("https://hmartin.portfoliobox.net/home");
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
+
+        });
+        binding.button8.setOnClickListener(v -> {
+            Uri uri = Uri.parse("https://www.linkedin.com/in/andrewbackes/");
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
+
+        });
+        binding.button9.setOnClickListener(v -> {
+            Uri uri = Uri.parse("https://pokemontcg.io/");
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
+
+        });
         return root;
     }
 }

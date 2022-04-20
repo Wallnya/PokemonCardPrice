@@ -1,8 +1,6 @@
 package com.pcp.pokemoncardprice.ui.favoris;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,8 +26,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.io.OutputStreamWriter;
+import java.util.Collections;
 
 public class FavorisFragment extends Fragment {
 
@@ -62,6 +59,7 @@ public class FavorisFragment extends Fragment {
         recyclerView.addItemDecoration(new VerticalSpacingDecoration(VERTICAL_ITEM_SPACE));
 
         favorisViewModel.getCardInfo().observe(getViewLifecycleOwner(), cardListItems -> {
+            Collections.sort(cardListItems, CardItem.byDate);
             FavorisListItemAdapter adapter = new FavorisListItemAdapter(cardListItems);
             adapter.setClickListener((view, position) -> {
                 CardItem selectedCardItem = cardListItems.get(position);

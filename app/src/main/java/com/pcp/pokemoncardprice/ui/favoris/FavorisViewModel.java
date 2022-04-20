@@ -1,7 +1,6 @@
 package com.pcp.pokemoncardprice.ui.favoris;
 
 import android.app.Application;
-import android.content.Context;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
@@ -13,11 +12,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 

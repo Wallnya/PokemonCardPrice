@@ -1,5 +1,9 @@
 package com.pcp.pokemoncardprice.models;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 
 public class CardItem {
@@ -20,7 +24,6 @@ public class CardItem {
     private String  rarity;
     private String  cardImage;
     private String  date;
-    private HashMap<String, String> prices;
     private String releasedDate;
 
     public CardItem(String id, String name, String extension, String extensionImage, String cardMarketaverageSellPrice, String cardMarketavg1, String cardMarketavg7,
@@ -96,78 +99,44 @@ public class CardItem {
         return extension;
     }
 
-    public void setExtension(String extension) {
-        this.extension = extension;
-    }
     public String getExtensionImage() {
         return extensionImage;
     }
 
-    public void setExtensionImage(String extensionImage) {
-        this.extensionImage = extensionImage;
-    }
-
     public String getcardMarketaverageSellPrice() { return cardMarketaverageSellPrice; }
-
-    public void setcardMarketaverageSellPrice(String cardMarketaverageSellPrice) { this.cardMarketaverageSellPrice = cardMarketaverageSellPrice; }
 
     public String getcardMarketavg1() { return cardMarketavg1; }
 
-    public void setcardMarketavg1(String cardMarketavg1) { this.cardMarketavg1 = cardMarketavg1; }
-
     public String getcardMarketavg7() { return cardMarketavg7; }
-
-    public void setcardMarketavg7(String cardMarketavg7) { this.cardMarketavg7 = cardMarketavg7; }
-
-    public String getcardMarketavg30() { return cardMarketavg30; }
-
-    public void setcardMarketavg30(String cardMarketavg30) { this.cardMarketavg30 = cardMarketavg30; }
 
     public String getTcgPlayerMarket() { return tcgPlayerMarket; }
 
-    public void setTcgPlayerMarket(String tcgPlayerMarket) { this.tcgPlayerMarket = tcgPlayerMarket; }
 
     public String getTcgPlayerLow() { return tcgPlayerLow; }
 
-    public void setTcgPlayerLow(String tcgPlayerLow) { this.tcgPlayerLow = tcgPlayerLow; }
-
-    public String getTcgPlayerMid() { return tcgPlayerMid; }
-
-    public void setTcgPlayerMid(String tcgPlayerMid) { this.tcgPlayerMid = tcgPlayerMid; }
-
-    public String getTcgPlayerHigh() { return tcgPlayerHigh; }
-
-    public void setTcgPlayerHigh(String tcgPlayerHigh) { this.tcgPlayerHigh = tcgPlayerHigh; }
-
     public String getRarity() { return rarity; }
-
-    public void setRarity(String rarity) { this.rarity = rarity; }
 
     public String getCardImage() { return cardImage; }
 
     public String getDate() { return date; }
 
-    public HashMap<String, String> getPrices() {
-        return prices;
-    }
-
-    public void setPrices(HashMap<String, String> prices) {
-        this.prices = prices;
-    }
-
     public String getReleasedDate() {
         return releasedDate;
     }
 
-    public void setReleasedDate(String releasedDate) {
-        this.releasedDate = releasedDate;
-    }
-
-    public String getFrenchName() {
-        return frenchName;
-    }
-
-    public void setFrenchName(String frenchName) {
-        this.frenchName = frenchName;
-    }
+    public static final Comparator<CardItem> byDate =new Comparator<CardItem>() {
+        @Override
+        public int compare(CardItem o1, CardItem o2) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
+            Date date = null;
+            Date date2 = null;
+            try {
+                date = dateFormat.parse(o1.getReleasedDate());
+                date2 = dateFormat.parse(o2.getReleasedDate());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            return date.compareTo(date2);
+        }
+    };
 }

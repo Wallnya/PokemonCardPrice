@@ -3,7 +3,7 @@
     <string name="title_home">Accueil</string>
     <string name="title_dashboard">Graphique</string>
     <string name="title_card_info_bottom">Infos</string>
-    <string name="title_card_info">Information de la carte</string>
+    <string name="title_card_info">Informations de la carte</string>
     <string name="title_card">Recherche</string>
     <string name="title_card_fragment">List card</string>
     <string name="title_favoris">Collection</string>

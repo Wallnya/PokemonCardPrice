@@ -36,8 +36,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DecimalFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -71,14 +69,13 @@ public class GraphFragment extends Fragment {
                 if(array.getJSONObject(i).getString("id").equals(graphViewModel.getID())) {
                     JSONObject userDetail = array.getJSONObject(i);
                     for (int j = 0; j < userDetail.getJSONArray("prices").length(); j++) {
-                        date = new SimpleDateFormat("yyyy/MM/dd").parse(array.getJSONObject(i).getJSONArray("prices").getJSONObject(j).getString("date"));
+                        String substr_day=array.getJSONObject(i).getJSONArray("prices").getJSONObject(j).getString("date").substring(0,2);
+                        String substr_month=array.getJSONObject(i).getJSONArray("prices").getJSONObject(j).getString("date").substring(3,5);
+                        String substr_year=array.getJSONObject(i).getJSONArray("prices").getJSONObject(j).getString("date").substring(6,10);
+
                         String value = userDetail.getJSONArray("prices").getJSONObject(j).getString("prix");
                         values.add(new Entry(j,Float.parseFloat(value)));
-
-                        int real_month = date.getMonth()+1; //Month+1 sinon on est un mois en retard
-                        int real_year = date.getYear()-100;
-
-                        arrayDate.add(date.getDate()+"-"+ real_month+"-"+real_year);
+                        arrayDate.add(substr_day+"-"+ substr_month+"-"+substr_year);
                     }
                     String lastDate =array.getJSONObject(i).getJSONArray("prices").getJSONObject(userDetail.getJSONArray("prices").length()-1).getString("date");
                     binding.textDashboard.setText("Carte moyenne du"+ lastDate +" :\n"+userDetail.getJSONArray("prices").getJSONObject(userDetail.getJSONArray("prices").length()-1).getString("prix")+"€");
@@ -91,11 +88,16 @@ public class GraphFragment extends Fragment {
             CustomMarkerView mv = new CustomMarkerView(getContext(), R.layout.custom_marker_view);
             // set the marker to the chart
             binding.chart.setMarkerView(mv);
-
             //Design x and y axis.
             XAxis xAxis = binding.chart.getXAxis();
             xAxis.setValueFormatter(new IndexAxisValueFormatter(getDate(arrayDate)));
-            xAxis.setLabelCount(arrayDate.size(), true);
+            if(values.size() > 6 )
+                xAxis.setLabelCount(6, true);
+            else
+                xAxis.setLabelCount(values.size(), true);
+
+
+            binding.chart.setExtraOffsets(10, 0, 25, 0);
             YAxis rightAxis = binding.chart.getAxisRight();
             rightAxis.setEnabled(false);
             LineDataSet set1;
@@ -129,7 +131,7 @@ public class GraphFragment extends Fragment {
                 LineData data = new LineData(dataSets);
                 binding.chart.setData(data);
             }
-        } catch (JSONException | ParseException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 

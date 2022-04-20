@@ -1,5 +1,6 @@
 package com.pcp.pokemoncardprice.ui.card;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,8 @@ import com.pcp.pokemoncardprice.models.CardItem;
 import com.pcp.pokemoncardprice.models.VerticalSpacingDecoration;
 import com.pcp.pokemoncardprice.ui.card_info.CardsInfoViewModel;
 
+import java.util.*;
+
 public class CardsFragment extends Fragment {
 
     private CardsViewModel cardsListViewModel;
@@ -26,6 +29,7 @@ public class CardsFragment extends Fragment {
     private FragmentCardsBinding binding;
     private static final int VERTICAL_ITEM_SPACE = 24;
 
+    @SuppressLint("NewApi")
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         cardsListViewModel =
@@ -41,7 +45,9 @@ public class CardsFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
         recyclerView.addItemDecoration(new VerticalSpacingDecoration(VERTICAL_ITEM_SPACE));
         cardsListViewModel.getCard(CardsViewModel.playerTag).observe(getViewLifecycleOwner(), cardListItems -> {
-            CardsListItemAdapter adapter = new CardsListItemAdapter(cardListItems);
+            Collections.sort(cardListItems, CardItem.byDate);
+            CardsListItemAdapter adapter = new CardsListItemAdapter(cardListItems);;
+
             //On cache le texte et l'animation car tout a été chargé
             binding.uppertext.setVisibility(View.GONE);
             binding.loadinganimation.setVisibility(View.GONE);

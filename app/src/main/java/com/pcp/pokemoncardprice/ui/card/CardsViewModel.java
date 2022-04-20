@@ -14,14 +14,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.ParseException;
-import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class CardsViewModel extends AndroidViewModel {
-    private MutableLiveData<List<CardItem>> mCards;
+    public MutableLiveData<List<CardItem>> mCards;
     public static String playerTag;
 
     public CardsViewModel(Application application) {
