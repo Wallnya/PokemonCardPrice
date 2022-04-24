@@ -72,4 +72,4 @@ There is much improvement that can be made at this time. When I have a little mo
 
 Ludivine DUCAMP - ludivine.ducamp@orange.fr
 
-Project Link: [https://github.com/Wallnya/TCG-Pok-prix](https://github.com/Wallnya/TCG-Pok-prix)
+Project Link: [https://github.com/Wallnya/TCG-Pokeprix](https://github.com/Wallnya/TCG-Pokeprix)
