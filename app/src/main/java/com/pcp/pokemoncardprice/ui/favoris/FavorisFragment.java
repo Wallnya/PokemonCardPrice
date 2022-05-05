@@ -2,8 +2,10 @@ package com.pcp.pokemoncardprice.ui.favoris;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -66,6 +68,9 @@ public class FavorisFragment extends Fragment {
 
                 graphViewModel.getCardInfo(selectedCardItem.getId()).observe(getViewLifecycleOwner(), cardItem -> {
                     if (cardItem != null) {
+                        binding.searchView.setQuery("",false);
+                        binding.searchView.clearFocus();
+                        binding.searchView.onActionViewCollapsed();
                         Navigation.findNavController(root).navigate(R.id.action_favorisFragment2_to_navigation_dashboard);
                     } else {
                         Toast.makeText(getContext(), "Une erreur est parvenue pendant la recherche de la carte", Toast.LENGTH_LONG).show();
@@ -73,7 +78,20 @@ public class FavorisFragment extends Fragment {
                 });
             });
             recyclerView.setAdapter(adapter);
+            binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    adapter.getFilter().filter(newText);
+                    return true;
+                }
+            });
         });
+
 
         String jsonString = jsonReader.read(getActivity(), "data.json");
         if(jsonString!=null) {
@@ -125,17 +143,6 @@ public class FavorisFragment extends Fragment {
         }
         return root;
     }
-
-  /*  private void writeToFile(String data) {
-        try {
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(getContext().openFileOutput("data.json", Context.MODE_PRIVATE));
-            outputStreamWriter.write(data);
-            outputStreamWriter.close();
-        }
-        catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
-    }*/
 
     @Override
     public void onDestroyView() {

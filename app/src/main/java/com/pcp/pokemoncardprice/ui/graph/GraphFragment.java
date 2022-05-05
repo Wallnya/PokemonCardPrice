@@ -44,6 +44,7 @@ public class GraphFragment extends Fragment {
     private FragmentGraphBinding binding;
     private CardsInfoViewModel cardsInfoViewModel;
     private JsonReader jsonReader = new JsonReader();
+    private ArrayList<String> arrayDate = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -55,7 +56,7 @@ public class GraphFragment extends Fragment {
         View root = binding.getRoot();
 
         ArrayList<Entry> values = new ArrayList<>();
-        ArrayList<String> arrayDate = new ArrayList<>();
+        //ArrayList<String> arrayDate = new ArrayList<>();
 
         final TextView textView = binding.textDashboard;
         graphViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
@@ -78,7 +79,7 @@ public class GraphFragment extends Fragment {
                         arrayDate.add(substr_day+"-"+ substr_month+"-"+substr_year);
                     }
                     String lastDate =array.getJSONObject(i).getJSONArray("prices").getJSONObject(userDetail.getJSONArray("prices").length()-1).getString("date");
-                    binding.textDashboard.setText("Carte moyenne du"+ lastDate +" :\n"+userDetail.getJSONArray("prices").getJSONObject(userDetail.getJSONArray("prices").length()-1).getString("prix")+"€");
+                    binding.textDashboard.setText("Carte moyenne du "+ lastDate +" :\n"+userDetail.getJSONArray("prices").getJSONObject(userDetail.getJSONArray("prices").length()-1).getString("prix")+"€");
                 }
             }
 
@@ -157,14 +158,14 @@ public class GraphFragment extends Fragment {
     }
 
     public class CustomMarkerView extends MarkerView {
-
-
         private TextView tvContent;
+        private TextView textView14;
         private int uiScreenWidth;
 
         public CustomMarkerView (Context context, int layoutResource) {
             super(context, layoutResource);
             tvContent = (TextView) findViewById(R.id.tvContent);
+            textView14 = (TextView) findViewById(R.id.textView14);
             uiScreenWidth = getResources().getDisplayMetrics().widthPixels;
 
         }
@@ -172,7 +173,9 @@ public class GraphFragment extends Fragment {
         // content (user-interface)
         @Override
         public void refreshContent(Entry e, Highlight highlight) {
-            tvContent.setText(""+e.getY()); // set the entry-value as the display text
+            String substr=arrayDate.get((int) e.getX()).substring(0,5);
+            textView14.setText(arrayDate.get((int) e.getX()));
+            tvContent.setText(e.getY()+"€"); // set the entry-value as the display text
             tvContent.setTextColor(Color.BLACK);
         }
         @Override

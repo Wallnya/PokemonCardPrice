@@ -3,6 +3,7 @@ package com.pcp.pokemoncardprice.ui.favoris;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,10 +14,14 @@ import com.pcp.pokemoncardprice.R;
 import com.pcp.pokemoncardprice.models.CardItem;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
+
 
 public class FavorisListItemAdapter extends RecyclerView.Adapter<FavorisListItemAdapter.ViewHolder>{
     private List<CardItem> mDataSet;
+    private List<CardItem> filteredDataSet;
+
     private FavorisListItemAdapter.ItemClickListener mClickListener;
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final TextView releasedDateView;
@@ -32,7 +37,6 @@ public class FavorisListItemAdapter extends RecyclerView.Adapter<FavorisListItem
             extensionImageView = (ImageView) v.findViewById(R.id.imageView);
             v.setOnClickListener(this);
         }
-
         @Override
         public void onClick(View view) {
             if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
@@ -53,6 +57,7 @@ public class FavorisListItemAdapter extends RecyclerView.Adapter<FavorisListItem
 
     public FavorisListItemAdapter(List<CardItem> dataSet) {
         mDataSet = dataSet;
+        filteredDataSet = dataSet;
     }
 
     @NonNull
@@ -83,5 +88,37 @@ public class FavorisListItemAdapter extends RecyclerView.Adapter<FavorisListItem
     }
     public interface ItemClickListener {
         void onItemClick(View view, int position);
+    }
+
+    public Filter getFilter() {
+        Filter filter = new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                FilterResults filterResults = new FilterResults();
+                if(charSequence == null | charSequence.length() == 0){
+                    filterResults.count = filteredDataSet.size();
+                    filterResults.values = filteredDataSet;
+
+                }else{
+                    String searchChr = charSequence.toString().toLowerCase();
+                    List<CardItem> resultData = new ArrayList<>();
+                    for(CardItem cardModel: filteredDataSet){
+                        if(cardModel.getName().toLowerCase().contains(searchChr)){
+                            resultData.add(cardModel);
+                        }
+                    }
+                    filterResults.count = resultData.size();
+                    filterResults.values = resultData;
+                }
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                mDataSet = (List<CardItem>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
+        return filter;
     }
 }

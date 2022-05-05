@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,15 +6,6 @@
     tools:context=".ui.graph.GraphFragment"
     android:background="#F3F2F8"
     >
-
-    <!--  <com.jjoe64.graphview.GraphView
-        android:id="@+id/idGraphView"
-        android:layout_width="408dp"
-        android:layout_height="407dp"
-        android:layout_alignParentTop="true"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="-5dp"
-        tools:layout_editor_absoluteY="51dp" />-->
 
     <TextView
         android:id="@+id/text_dashboard"
