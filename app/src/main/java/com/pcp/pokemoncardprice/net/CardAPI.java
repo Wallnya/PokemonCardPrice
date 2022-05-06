@@ -13,7 +13,7 @@ public class CardAPI {
 
     static String API_ENDPOINT = "https://api.pokemontcg.io/v2/cards/?q=name:";
     public static void getCard(String playerTag, Context ctx, Response.Listener<JSONObject> onResponse, Response.ErrorListener onError) {
-        String requestUrl = API_ENDPOINT + playerTag;
+        String requestUrl = API_ENDPOINT + "\""+playerTag+ "\"";
         JsonObjectRequest cardRequest = new JsonObjectRequest
                 (Request.Method.GET, requestUrl, null, onResponse, null) {
         };

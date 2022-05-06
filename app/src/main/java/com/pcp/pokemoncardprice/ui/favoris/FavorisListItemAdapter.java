@@ -19,8 +19,10 @@ import java.util.List;
 
 
 public class FavorisListItemAdapter extends RecyclerView.Adapter<FavorisListItemAdapter.ViewHolder>{
-    private List<CardItem> mDataSet;
-    private List<CardItem> filteredDataSet;
+    public List<CardItem> mDataSet;
+    public List<CardItem> filteredDataSet;
+    public List<CardItem> originalDateSet;
+
 
     private FavorisListItemAdapter.ItemClickListener mClickListener;
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -39,7 +41,9 @@ public class FavorisListItemAdapter extends RecyclerView.Adapter<FavorisListItem
         }
         @Override
         public void onClick(View view) {
-            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
+            if (mClickListener != null) {
+                mClickListener.onItemClick(view, getAdapterPosition(),nameView.getText());
+            }
         }
 
         public TextView getReleasedDateView() {
@@ -58,6 +62,7 @@ public class FavorisListItemAdapter extends RecyclerView.Adapter<FavorisListItem
     public FavorisListItemAdapter(List<CardItem> dataSet) {
         mDataSet = dataSet;
         filteredDataSet = dataSet;
+        originalDateSet = dataSet;
     }
 
     @NonNull
@@ -87,7 +92,7 @@ public class FavorisListItemAdapter extends RecyclerView.Adapter<FavorisListItem
         this.mClickListener = itemClickListener;
     }
     public interface ItemClickListener {
-        void onItemClick(View view, int position);
+        void onItemClick(View view, int position, CharSequence text);
     }
 
     public Filter getFilter() {

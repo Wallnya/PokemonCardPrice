@@ -2,7 +2,6 @@ package com.pcp.pokemoncardprice.ui.favoris;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
@@ -63,7 +62,27 @@ public class FavorisFragment extends Fragment {
         favorisViewModel.getCardInfo().observe(getViewLifecycleOwner(), cardListItems -> {
             Collections.sort(cardListItems, CardItem.byDate);
             FavorisListItemAdapter adapter = new FavorisListItemAdapter(cardListItems);
-            adapter.setClickListener((view, position) -> {
+            binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    adapter.getFilter().filter(newText);
+                    return true;
+                }
+            });
+            adapter.setClickListener((view, position, text) -> {
+                //Récupérer la bonne valeur quand on selectionne
+                String name = (String) text;
+                for (int i = 0; i < adapter.originalDateSet.size(); i++) {
+                    if (name.equals(adapter.originalDateSet.get(i).getName())) {
+                        position = i;
+                        break;
+                    }
+                }
                 CardItem selectedCardItem = cardListItems.get(position);
 
                 graphViewModel.getCardInfo(selectedCardItem.getId()).observe(getViewLifecycleOwner(), cardItem -> {
@@ -78,18 +97,6 @@ public class FavorisFragment extends Fragment {
                 });
             });
             recyclerView.setAdapter(adapter);
-            binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                @Override
-                public boolean onQueryTextSubmit(String query) {
-                    return false;
-                }
-
-                @Override
-                public boolean onQueryTextChange(String newText) {
-                    adapter.getFilter().filter(newText);
-                    return true;
-                }
-            });
         });
 
 

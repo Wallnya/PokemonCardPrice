@@ -45,7 +45,7 @@
         android:textColorHint="@color/black"
         android:backgroundTint="@color/black"
         android:textCursorDrawable="@color/black"
-        android:maxLength="15"
+        android:maxLength="20"
         android:text=""
         android:autofillHints="pikachu"
         tools:ignore="LabelFor" />
