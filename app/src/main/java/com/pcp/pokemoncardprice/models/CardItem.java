@@ -127,7 +127,7 @@ public class CardItem {
     public static final Comparator<CardItem> byDate =new Comparator<CardItem>() {
         @Override
         public int compare(CardItem o1, CardItem o2) {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             Date date = null;
             Date date2 = null;
             try {

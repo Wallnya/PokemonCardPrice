@@ -16,11 +16,14 @@ import com.pcp.pokemoncardprice.R;
 
 import com.pcp.pokemoncardprice.databinding.FragmentCardsearchBinding;
 import com.pcp.pokemoncardprice.ui.card.CardsViewModel;
+import com.pcp.pokemoncardprice.ui.extension.ExtensionViewModel;
 
 
 public class CardSearchFragment extends Fragment {
     private CardsViewModel cardsViewModel;
     private CardSearchViewModel cardSearchViewModel;
+    private ExtensionViewModel extensionViewModel;
+
     private FragmentCardsearchBinding binding;
 
     @Override
@@ -32,11 +35,14 @@ public class CardSearchFragment extends Fragment {
         cardSearchViewModel =
                 new ViewModelProvider(requireActivity()).get(CardSearchViewModel.class);
 
+        extensionViewModel =
+                new ViewModelProvider(requireActivity()).get(ExtensionViewModel.class);
+
         binding = FragmentCardsearchBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
 
-        binding.button.setOnClickListener(v -> {
+        binding.researchButton.setOnClickListener(v -> {
             String playerTag = binding.playerTag.getText().toString();
             char[] char_table = playerTag.toCharArray();
 
@@ -53,7 +59,16 @@ public class CardSearchFragment extends Fragment {
                     });
                 });
             }
+        });
 
+        binding.extensionButton.setOnClickListener(v -> {
+            extensionViewModel.getExtension().observe(getViewLifecycleOwner(), cardItem -> {
+                    if (!cardItem.isEmpty()) {
+                        Navigation.findNavController(root).navigate(R.id.action_cardSearchFragment_to_extensionFragment);
+                    } else {
+                        Toast.makeText(getContext(), "Pas d'extension trouvée'", Toast.LENGTH_LONG).show();
+                    }
+                });
         });
 
         return root;

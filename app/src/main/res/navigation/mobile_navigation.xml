@@ -34,6 +34,9 @@
         <action
             android:id="@+id/action_cardSearchFragment_to_cardsFragment"
             app:destination="@id/cardsFragment" />
+        <action
+            android:id="@+id/action_cardSearchFragment_to_extensionFragment"
+            app:destination="@id/extensionFragment" />
     </fragment>
     <fragment
         android:id="@+id/cardsFragment"
@@ -59,4 +62,9 @@
         android:name="com.pcp.pokemoncardprice.ui.parameters.ParametersFragment"
         android:label="Paramètres"
         tools:layout="@layout/fragment_parameters" />
+    <fragment
+        android:id="@+id/extensionFragment"
+        android:name="com.pcp.pokemoncardprice.ui.extension.ExtensionFragment"
+        android:label="Liste des extensions"
+        tools:layout="@layout/fragment_extension" />
 </navigation>
