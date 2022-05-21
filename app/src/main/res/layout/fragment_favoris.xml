@@ -47,7 +47,9 @@
             android:background="@drawable/button_selector"
             android:queryHint="Nom de la carte"
             android:theme="@style/WhiteCursorSearchView"
-            android:textColor="@color/black">
+            android:textColor="@color/black"
+            android:iconifiedByDefault="false"
+            >
 
         </SearchView>
 

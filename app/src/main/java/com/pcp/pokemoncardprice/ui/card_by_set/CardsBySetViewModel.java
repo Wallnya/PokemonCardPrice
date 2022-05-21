@@ -1,4 +1,4 @@
-package com.pcp.pokemoncardprice.ui.card;
+package com.pcp.pokemoncardprice.ui.card_by_set;
 
 import android.app.Application;
 
@@ -20,54 +20,27 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class CardsViewModel extends AndroidViewModel {
+public class CardsBySetViewModel extends AndroidViewModel {
     public MutableLiveData<List<CardItem>> mCards;
     public static String playerTag;
     public static String setId;
 
 
-    public CardsViewModel(Application application) {
+    public CardsBySetViewModel(Application application) {
         super(application);
         mCards = new MutableLiveData<>();
-        List<CardItem> cardItems = new ArrayList<>();
-        CardAPI.getCard(playerTag, getApplication().getApplicationContext(), response -> {
-            mCards = retrieveData(response,cardItems);
-            mCards.setValue(cardItems);
-        }, error -> {
-            mCards.setValue(null);
-        });
-        mCards.setValue(cardItems);
-    }
-
-    public LiveData<List<CardItem>> getCard(String playerTag) {
-        CardsViewModel.playerTag = playerTag;
-        System.out.println("là playerTag:"+playerTag);
-        mCards = new MutableLiveData<>();
-        List<CardItem> cardItems = new ArrayList<>();
-        CardAPI.getCard(playerTag, getApplication().getApplicationContext(), response -> {
-            mCards = retrieveData(response,cardItems);
-            mCards.setValue(cardItems);
-        }, error -> {
-            mCards.setValue(null);
-        });
-        return mCards;
     }
 
     public LiveData<List<CardItem>> getCardbySet(String setId) {
-        CardsViewModel.setId = setId;
+        CardsBySetViewModel.setId = setId;
         mCards = new MutableLiveData<>();
         List<CardItem> cardItems = new ArrayList<>();
         CardBySetAPI.getCardBySet(setId, getApplication().getApplicationContext(), response -> {
-            System.out.println("ici 1");
             mCards = retrieveData(response,cardItems);
-            System.out.println("ici 2");
             mCards.setValue(cardItems);
-            System.out.println("ici 3");
-
         }, error -> {
             mCards.setValue(null);
         });
-        //System.out.println("mcards :"+mCards.getValue().get(0).getId());
         return mCards;
     }
 
@@ -120,9 +93,7 @@ public class CardsViewModel extends AndroidViewModel {
                             tcgPlayerHigh = cardItemJson.getJSONObject("tcgplayer").getJSONObject("prices").getJSONObject("holofoil").getString("high");
                         }
                         else if (cardItemJson.getJSONObject("tcgplayer").getJSONObject("prices").has("normal")){
-                                if (cardItemJson.getJSONObject("tcgplayer").getJSONObject("prices").getJSONObject("normal").has("market")) {
-                                    tcgPlayerMarket = cardItemJson.getJSONObject("tcgplayer").getJSONObject("prices").getJSONObject("normal").getString("market");
-                                }
+                            tcgPlayerMarket = cardItemJson.getJSONObject("tcgplayer").getJSONObject("prices").getJSONObject("normal").getString("market");
                             tcgPlayerLow = cardItemJson.getJSONObject("tcgplayer").getJSONObject("prices").getJSONObject("normal").getString("low");
                             tcgPlayerMid = cardItemJson.getJSONObject("tcgplayer").getJSONObject("prices").getJSONObject("normal").getString("mid");
                             tcgPlayerHigh = cardItemJson.getJSONObject("tcgplayer").getJSONObject("prices").getJSONObject("normal").getString("high");

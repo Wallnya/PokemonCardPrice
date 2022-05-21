@@ -2,6 +2,7 @@ package com.pcp.pokemoncardprice.ui.favoris;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
@@ -62,10 +63,21 @@ public class FavorisFragment extends Fragment {
         favorisViewModel.getCardInfo().observe(getViewLifecycleOwner(), cardListItems -> {
             Collections.sort(cardListItems, CardItem.byDate);
             FavorisListItemAdapter adapter = new FavorisListItemAdapter(cardListItems);
+           /* binding.searchView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    binding.searchView.onActionViewExpanded();
+                    System.out.println("je suis passée ici");
+                    binding.searchView.clearFocus();
+                    //binding.searchView.setIconifiedByDefault(false);
+                    //binding.searchView.setIconified(false);
+                }
+            });*/
+            binding.searchView.setIconified(false);
             binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextSubmit(String query) {
-                    return false;
+                    return true;
                 }
 
                 @Override

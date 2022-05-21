@@ -66,5 +66,18 @@
         android:id="@+id/extensionFragment"
         android:name="com.pcp.pokemoncardprice.ui.extension.ExtensionFragment"
         android:label="Liste des extensions"
-        tools:layout="@layout/fragment_extension" />
+        tools:layout="@layout/fragment_extension" >
+        <action
+            android:id="@+id/action_extensionFragment_to_cardsBySetFragment"
+            app:destination="@id/cardsBySetFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cardsBySetFragment"
+        android:name="com.pcp.pokemoncardprice.ui.card_by_set.CardsBySetFragment"
+        android:label="Liste de cartes"
+        tools:layout="@layout/fragment_cardsbyset">
+        <action
+            android:id="@+id/action_cardsBySetFragment_to_navigation_notifications"
+            app:destination="@id/navigation_notifications" />
+    </fragment>
 </navigation>
