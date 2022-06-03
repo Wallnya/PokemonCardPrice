@@ -21,19 +21,32 @@
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.511"
+        app:layout_constraintHorizontal_bias="0.482"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.735" />
+        app:layout_constraintVertical_bias="0.778" />
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/chart"
         android:layout_width="372dp"
         android:layout_height="399dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="88dp"
         app:layout_constraintBottom_toTopOf="@+id/text_dashboard"
         tools:ignore="MissingClass,MissingConstraints"
-        tools:layout_editor_absoluteX="19dp" />
+        tools:layout_editor_absoluteX="19dp">
+
+    </com.github.mikephil.charting.charts.LineChart>
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="220dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/button_selector"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chart" />
 
     <Button
         android:id="@+id/button"
@@ -49,7 +62,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.825"
+        app:layout_constraintVertical_bias="0.874"
         tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

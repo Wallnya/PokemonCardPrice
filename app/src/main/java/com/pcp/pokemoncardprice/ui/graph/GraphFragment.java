@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,30 +42,58 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class GraphFragment extends Fragment {
+public class GraphFragment extends Fragment implements Spinner.OnItemSelectedListener{
 
     private FragmentGraphBinding binding;
     private CardsInfoViewModel cardsInfoViewModel;
     private JsonReader jsonReader = new JsonReader();
     private ArrayList<String> arrayDate = new ArrayList<>();
+    private ArrayList<Entry> values = new ArrayList<>();
+    private ArrayList<String> valuesSpinner = new ArrayList<>();
+    private GraphViewModel graphViewModel;
+
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        GraphViewModel graphViewModel =
+         graphViewModel =
                 new ViewModelProvider(this).get(GraphViewModel.class);
         cardsInfoViewModel =
                 new ViewModelProvider(requireActivity()).get(CardsInfoViewModel.class);
         binding = FragmentGraphBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        ArrayList<Entry> values = new ArrayList<>();
-        //ArrayList<String> arrayDate = new ArrayList<>();
+        binding.spinner.setOnItemSelectedListener(this);
 
         final TextView textView = binding.textDashboard;
         graphViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        try {
+            getDataSpinner(graphViewModel.getID());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        displayGraph(graphViewModel,"","");
+
+        binding.button.setOnClickListener(v -> {
+            String playerTag = graphViewModel.getID();
+            cardsInfoViewModel.getCardInfo(playerTag).observe(getViewLifecycleOwner(), cardItem -> {
+                if (!cardItem.equals(null)) {
+                        Navigation.findNavController(root).navigate(R.id.action_navigation_dashboard_to_navigation_notifications);
+                }
+                else {
+                    Toast.makeText(getContext(), "Pas de carte", Toast.LENGTH_LONG).show();
+                }
+            });
+        });
+        return root;
+    }
+
+    private void displayGraph(GraphViewModel graphViewModel, String month, String year){
+        values.clear();
+        arrayDate.clear();
+
         String jsonString = jsonReader.read(getContext(), "data.json");
         JSONObject obj;
-        Date date;
         try {
             obj = new JSONObject(jsonString);
             JSONArray array=obj.getJSONArray("data");
@@ -74,9 +105,11 @@ public class GraphFragment extends Fragment {
                         String substr_month=array.getJSONObject(i).getJSONArray("prices").getJSONObject(j).getString("date").substring(3,5);
                         String substr_year=array.getJSONObject(i).getJSONArray("prices").getJSONObject(j).getString("date").substring(6,10);
 
-                        String value = userDetail.getJSONArray("prices").getJSONObject(j).getString("prix");
-                        values.add(new Entry(j,Float.parseFloat(value)));
-                        arrayDate.add(substr_day+"-"+ substr_month+"-"+substr_year);
+                        if((month == "" && year == "") || month.equals(substr_month) && year.equals(substr_year)){
+                            String value = userDetail.getJSONArray("prices").getJSONObject(j).getString("prix");
+                            values.add(new Entry(j,Float.parseFloat(value)));
+                            arrayDate.add(substr_day+"-"+ substr_month+"-"+substr_year);
+                        }
                     }
                     String lastDate =array.getJSONObject(i).getJSONArray("prices").getJSONObject(userDetail.getJSONArray("prices").length()-1).getString("date");
                     binding.textDashboard.setText("Carte moyenne du "+ lastDate +" :\n"+userDetail.getJSONArray("prices").getJSONObject(userDetail.getJSONArray("prices").length()-1).getString("prix")+"€");
@@ -135,19 +168,29 @@ public class GraphFragment extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
 
-        binding.button.setOnClickListener(v -> {
-            String playerTag = graphViewModel.getID();
-            cardsInfoViewModel.getCardInfo(playerTag).observe(getViewLifecycleOwner(), cardItem -> {
-                if (!cardItem.equals(null)) {
-                        Navigation.findNavController(root).navigate(R.id.action_navigation_dashboard_to_navigation_notifications);
+    private void getDataSpinner(String id) throws JSONException {
+        String jsonString = jsonReader.read(getContext(), "data.json");
+        JSONObject obj;
+            obj = new JSONObject(jsonString);
+            JSONArray array=obj.getJSONArray("data");
+            for(int i=0;i<array.length();i++){
+                if(array.getJSONObject(i).getString("id").equals(id)) {
+                    JSONObject userDetail = array.getJSONObject(i);
+                    for (int j = 0; j < userDetail.getJSONArray("prices").length(); j++) {
+                        String substr_month=array.getJSONObject(i).getJSONArray("prices").getJSONObject(j).getString("date").substring(3,5);
+                        String substr_year=array.getJSONObject(i).getJSONArray("prices").getJSONObject(j).getString("date").substring(6,10);
+                        if(!valuesSpinner.contains(substr_month+"-"+substr_year))
+                            valuesSpinner.add(substr_month+"-"+substr_year);
+                    }
+                    valuesSpinner.add("Toute la collection");
                 }
-                else {
-                    Toast.makeText(getContext(), "Pas de carte", Toast.LENGTH_LONG).show();
-                }
-            });
-        });
-        return root;
+            }
+        //Setting adapter to show the items in the spinner
+        binding.spinner.setAdapter(new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_spinner_dropdown_item,
+                valuesSpinner));
     }
 
     private ArrayList<String> getDate(ArrayList date2) {
@@ -155,6 +198,28 @@ public class GraphFragment extends Fragment {
         for (int i = 0; i < date2.size(); i++)
             label.add(date2.get(i).toString());
         return label;
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        if(valuesSpinner.get(i).equals("Toute la collection")){
+            displayGraph(graphViewModel,"","");
+        }
+        else{
+            String substr_month=valuesSpinner.get(i).substring(0,2);
+            String substr_year=valuesSpinner.get(i).substring(3,7);
+            System.out.println("substr_month "+substr_month);
+            System.out.println("substr_year "+substr_year);
+            displayGraph(graphViewModel, substr_month,substr_year);
+        }
+        binding.chart.getData().notifyDataChanged();
+        binding.chart.notifyDataSetChanged();
+        binding.chart.invalidate(); // refreshes chart
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 
     public class CustomMarkerView extends MarkerView {
@@ -173,7 +238,6 @@ public class GraphFragment extends Fragment {
         // content (user-interface)
         @Override
         public void refreshContent(Entry e, Highlight highlight) {
-            String substr=arrayDate.get((int) e.getX()).substring(0,5);
             textView14.setText(arrayDate.get((int) e.getX()));
             tvContent.setText(e.getY()+"€"); // set the entry-value as the display text
             tvContent.setTextColor(Color.BLACK);
