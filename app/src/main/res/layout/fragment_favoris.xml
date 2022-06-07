@@ -13,7 +13,14 @@
         android:id="@+id/textView7"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-
+    <TextView
+        android:id="@+id/averagePrice"
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:gravity="center_horizontal"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
     <Button
         android:id="@+id/button"
         android:layout_width="250dp"
@@ -23,11 +30,13 @@
         android:textStyle="bold"
         android:text="@string/updateFavoris"
         android:textColor="@color/black" />
-
+    
     <TextView
-        android:id="@+id/textView26"
+        android:id="@+id/textView30"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+
 
     <LinearLayout
         android:layout_width="match_parent"

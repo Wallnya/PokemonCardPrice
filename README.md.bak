@@ -2,7 +2,7 @@
 <br />
 <div align="center">
     <img src="Image/Logo/TPP_200px.png" alt="Logo" width="150" height="150">
-  <h3 align="center">PokemonCardPrice</h3>
+  <h3 align="center">TCG Poképrix</h3>
 
   <p align="center">
     A small personal project like this
@@ -28,7 +28,7 @@
  <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-The PokemonCardPrice project is a personal project that had the goal of first developing an application for a friend. Its first goal was to be able to show the stock price of pokemon cards over time. Starting from a simple challenge, here I am with a rather complete version of the latter.
+The TCG Poképrix project is a personal project that had the goal of first developing an application for a friend. Its first goal was to be able to show the stock price of pokemon cards over time. Starting from a simple challenge, here I am with a rather complete version of the latter.
 I would like to thank https://pokemontcg.io/ and its founder __Andrew Backes__ for letting me use his API which has been very helpful!
 
 The goal is also to be able to propose this application on the google play store, so that everyone can manage in his quest to sell pokemon cards. 
@@ -63,6 +63,7 @@ The goal is also to be able to propose this application on the google play store
  <!-- Improvement -->
 ## Improvement
 There is much improvement that can be made at this time. When I have a little more time, I will focus on these. Here is a non-exhaustive list of potential improvements:
+
 - [x] Research page
 	- [ ] Be able to enter non-pokemon cards (Trainer)
 	- [ ] To be able to search by extension
@@ -71,4 +72,4 @@ There is much improvement that can be made at this time. When I have a little mo
 
 Ludivine DUCAMP - ludivine.ducamp@orange.fr
 
-Project Link: [https://github.com/Wallnya/PokemonCardPrice](https://github.com/Wallnya/PokemonCardPrice)
+Project Link: [https://github.com/Wallnya/TCG-Pokeprix](https://github.com/Wallnya/TCG-Pokeprix)

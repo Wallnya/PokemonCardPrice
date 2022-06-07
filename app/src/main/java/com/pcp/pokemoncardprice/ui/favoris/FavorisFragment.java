@@ -36,6 +36,7 @@ public class FavorisFragment extends Fragment {
     private GraphViewModel graphViewModel;
     private CardsInfoViewModel cardsInfoViewModel;
     private JsonReader jsonReader = new JsonReader();
+    private float sumPrices;
 
     private FragmentFavorisBinding binding;
     private static final int VERTICAL_ITEM_SPACE = 24;
@@ -54,6 +55,7 @@ public class FavorisFragment extends Fragment {
 
         binding = FragmentFavorisBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        updateAveragePrice();
 
         final RecyclerView recyclerView = binding.rankingListView;
 
@@ -63,16 +65,6 @@ public class FavorisFragment extends Fragment {
         favorisViewModel.getCardInfo().observe(getViewLifecycleOwner(), cardListItems -> {
             Collections.sort(cardListItems, CardItem.byDate);
             FavorisListItemAdapter adapter = new FavorisListItemAdapter(cardListItems);
-           /* binding.searchView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    binding.searchView.onActionViewExpanded();
-                    System.out.println("je suis passée ici");
-                    binding.searchView.clearFocus();
-                    //binding.searchView.setIconifiedByDefault(false);
-                    //binding.searchView.setIconified(false);
-                }
-            });*/
             binding.searchView.setIconified(false);
             binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
@@ -145,11 +137,14 @@ public class FavorisFragment extends Fragment {
                                         jsonReader.writeToFile(obj.toString(),getContext());
                                     }
                                 }
+                                System.out.println("sumprices : "+sumPrices);
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                         });
                     }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -160,7 +155,24 @@ public class FavorisFragment extends Fragment {
             binding.button.setBackgroundColor(getResources().getColor(R.color.blue));
             binding.button.setClickable(false);
         }
+
         return root;
+    }
+
+    private void updateAveragePrice() {
+        sumPrices = 0;
+        String jsonString = jsonReader.read(getActivity(), "data.json");
+        JSONObject obj;
+        try {
+            obj = new JSONObject(jsonString);
+            JSONArray array = obj.getJSONArray("data");
+            for (int i = 0; i < array.length(); i++) {
+                sumPrices += Float.valueOf(array.getJSONObject(i).getJSONArray("prices").getJSONObject( array.getJSONObject(i).getJSONArray("prices").length()-1).getString("prix"));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        binding.averagePrice.setText("Prix moyen : "+sumPrices+" €");
     }
 
     @Override

@@ -50,6 +50,7 @@ The goal is also to be able to propose this application on the google play store
 - [x] Graphic page
     - [x] See the stock price of the pokemon card
     - [x] Return to card information
+	- [x] Sort prices by date
 - [x] Information page
     - [x] Consult the main information of the card
     - [x] Be able to favorite the card
@@ -58,15 +59,17 @@ The goal is also to be able to propose this application on the google play store
     - [x] Be able to search for a card by typing its name
     - [x] See the list of cards with the name of the pokemon
     - [x] Be able to enter the French name of the card
+	- [x] Be able to enter non-pokemon cards (Trainer) / NOT COMPLETE
+	- [x] To be able to search by extension
 
 	
  <!-- Improvement -->
 ## Improvement
 There is much improvement that can be made at this time. When I have a little more time, I will focus on these. Here is a non-exhaustive list of potential improvements:
 
-- [x] Research page
-	- [ ] Be able to enter non-pokemon cards (Trainer)
-	- [ ] To be able to search by extension
+- [x] Favorites page
+	- [ ] Be able to sort by rarity, price...
+	
 <!-- CONTACT -->
 ## Contact
 

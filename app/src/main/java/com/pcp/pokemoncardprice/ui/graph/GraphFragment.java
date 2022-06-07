@@ -47,6 +47,7 @@ public class GraphFragment extends Fragment implements Spinner.OnItemSelectedLis
     private FragmentGraphBinding binding;
     private CardsInfoViewModel cardsInfoViewModel;
     private JsonReader jsonReader = new JsonReader();
+    private ArrayList<String> fullArrayDate = new ArrayList<>();
     private ArrayList<String> arrayDate = new ArrayList<>();
     private ArrayList<Entry> values = new ArrayList<>();
     private ArrayList<String> valuesSpinner = new ArrayList<>();
@@ -62,6 +63,7 @@ public class GraphFragment extends Fragment implements Spinner.OnItemSelectedLis
                 new ViewModelProvider(requireActivity()).get(CardsInfoViewModel.class);
         binding = FragmentGraphBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        valuesSpinner.add("Toute la collection");
 
         binding.spinner.setOnItemSelectedListener(this);
 
@@ -109,6 +111,7 @@ public class GraphFragment extends Fragment implements Spinner.OnItemSelectedLis
                             String value = userDetail.getJSONArray("prices").getJSONObject(j).getString("prix");
                             values.add(new Entry(j,Float.parseFloat(value)));
                             arrayDate.add(substr_day+"-"+ substr_month+"-"+substr_year);
+                            fullArrayDate.add(substr_day+"-"+ substr_month+"-"+substr_year);
                         }
                     }
                     String lastDate =array.getJSONObject(i).getJSONArray("prices").getJSONObject(userDetail.getJSONArray("prices").length()-1).getString("date");
@@ -184,7 +187,6 @@ public class GraphFragment extends Fragment implements Spinner.OnItemSelectedLis
                         if(!valuesSpinner.contains(substr_month+"-"+substr_year))
                             valuesSpinner.add(substr_month+"-"+substr_year);
                     }
-                    valuesSpinner.add("Toute la collection");
                 }
             }
         //Setting adapter to show the items in the spinner
@@ -238,7 +240,7 @@ public class GraphFragment extends Fragment implements Spinner.OnItemSelectedLis
         // content (user-interface)
         @Override
         public void refreshContent(Entry e, Highlight highlight) {
-            textView14.setText(arrayDate.get((int) e.getX()));
+            textView14.setText(fullArrayDate.get((int) e.getX()));
             tvContent.setText(e.getY()+"€"); // set the entry-value as the display text
             tvContent.setTextColor(Color.BLACK);
         }
