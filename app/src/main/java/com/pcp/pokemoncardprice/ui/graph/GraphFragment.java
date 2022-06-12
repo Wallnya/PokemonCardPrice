@@ -210,8 +210,6 @@ public class GraphFragment extends Fragment implements Spinner.OnItemSelectedLis
         else{
             String substr_month=valuesSpinner.get(i).substring(0,2);
             String substr_year=valuesSpinner.get(i).substring(3,7);
-            System.out.println("substr_month "+substr_month);
-            System.out.println("substr_year "+substr_year);
             displayGraph(graphViewModel, substr_month,substr_year);
         }
         binding.chart.getData().notifyDataChanged();

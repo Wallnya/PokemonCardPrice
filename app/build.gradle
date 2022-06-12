@@ -9,7 +9,7 @@ android {
         applicationId "com.pcp.pokemoncardprice"
         minSdk 19
         targetSdk 30
-        versionCode 12
+        versionCode 13
         versionName "2.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

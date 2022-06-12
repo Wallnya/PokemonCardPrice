@@ -149,6 +149,7 @@ public class FavorisFragment extends Fragment {
                     e.printStackTrace();
                 }
                 Toast.makeText(getContext(), "Actualisation finie", Toast.LENGTH_LONG).show();
+                updateAveragePrice();
             });
         }
         else{
